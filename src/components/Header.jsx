@@ -1,11 +1,9 @@
-import React from 'react'
+import React from "react";
 
 export default function Header() {
   return (
     <div className="header container">
-      <h2>
-        Balance Tracker
-      </h2>
+      <h1>Balance Tracker</h1>
     </div>
-  )
+  );
 }
