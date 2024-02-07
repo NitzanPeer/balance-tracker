@@ -24,16 +24,16 @@ export default function TransactionList({ transactions, handleRemoveTransaction 
 
     return (
         <div className="transaction-table">
-            <div className="filter-btns">
+            <div className="filter-btns-container">
                 <button className={`${filterType === 'all' ? 'clicked' : ''}`} onClick={() => handleFilterChange('all')}>All</button>
                 <button className={`${filterType === 'income' ? 'clicked' : ''}`} onClick={() => handleFilterChange('income')}>Income</button>
                 <button className={`${filterType === 'expense' ? 'clicked' : ''}`} onClick={() => handleFilterChange('expense')}>Expense</button>
             </div>
             <ul className="transaction-list clean-list">
                 {filteredTransactions.map((transaction, index) => (
-                    <Transaction 
-                        key={transaction.id} 
-                        transaction={transaction} 
+                    <Transaction
+                        key={transaction.id}
+                        transaction={transaction}
                         handleRemoveTransaction={handleRemoveTransaction}
                         index={index}
                         />

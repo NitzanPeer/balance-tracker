@@ -4,7 +4,7 @@ export default function Header() {
   return (
     <div className="header container">
       <h2>
-        Expense Tracker
+        Balance Tracker
       </h2>
     </div>
   )
