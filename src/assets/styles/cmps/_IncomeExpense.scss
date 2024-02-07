@@ -1,0 +1,37 @@
+.income-expense {
+    display: flex;
+    justify-content: space-around;
+    font-weight: bold;
+    font-size: 24px;
+
+    .income {
+        border: solid 2px;
+        padding: 10px;
+        width: 100%;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+
+        h4 {
+            color: #2ecc71;
+            margin-block-end: 10px;
+        }
+    }
+
+    .expense {
+        border: 2px solid;
+        border-left: none;
+        padding: 10px;
+        width: 100%;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+
+        h4 {
+            color: #e74c3c;
+            margin-block-end: 10px;
+        }
+
+        p {
+            font-weight: bold;
+        }
+    }
+}
