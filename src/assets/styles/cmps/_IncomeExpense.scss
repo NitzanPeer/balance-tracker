@@ -12,8 +12,11 @@
         border-bottom-left-radius: 10px;
 
         h4 {
-            color: #2ecc71;
             margin-block-end: 10px;
+        }
+
+        span {
+            color: #2ecc71;
         }
     }
 
@@ -26,12 +29,11 @@
         border-bottom-right-radius: 10px;
 
         h4 {
-            color: #e74c3c;
             margin-block-end: 10px;
         }
 
-        p {
-            font-weight: bold;
+        span {
+            color: #e74c3c;
         }
     }
 }

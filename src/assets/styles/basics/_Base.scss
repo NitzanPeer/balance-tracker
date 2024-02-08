@@ -255,6 +255,31 @@ button.clicked {
   }
 }
 
+.not-found-page-container {
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    margin: 30px;
+  }
+}
+
+.income-color {
+  color: #2ecc71;
+}
+
+.expense-color {
+  color: #e74c3c;
+}
+
+.income-background {
+  background-color: #2ecc71;
+}
+
+.expense-background {
+  background-color: #e74c3c;
+}
+
 @media screen and (min-width: 768px) {
   /* Styles for tablets and larger screens */
 }

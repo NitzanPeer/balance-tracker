@@ -12,6 +12,7 @@ export default function AddTransaction({
   const [date, setDate] = useState("");
   const [category, setCategory] = useState("");
   const [sum, setSum] = useState("");
+  const [title, setTitle] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = () => {
@@ -24,6 +25,7 @@ export default function AddTransaction({
     const newTransaction = {
       id: generateId(),
       isIncome: category === "Income",
+      title,
       date,
       category,
       sum,
@@ -38,6 +40,12 @@ export default function AddTransaction({
           <span className="close" onClick={closeModal}>
             X
           </span>
+          <input
+            className="title-input"
+            type="text"
+            placeholder="Title"
+            onChange={(e) => setTitle(e.target.value)}
+          />
           <input
             className="sum-input"
             type="number"

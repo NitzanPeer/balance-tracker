@@ -1,8 +1,8 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Transaction from "./Transaction";
 
-export default function TransactionList({
+export default function TransactionTable({
   transactions,
   handleRemoveTransaction,
 }) {
@@ -13,6 +13,17 @@ export default function TransactionList({
     setClicked(type === "all");
     setFilterType(type);
   };
+
+  // a function the sort uses to sort transactions by date
+  const compareDates = (a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    return dateA - dateB;
+  };
+
+  useEffect(() => {
+    transactions.sort(compareDates);
+  }, [transactions]);
 
   const filteredTransactions = transactions.filter((transaction) => {
     if (filterType === "all") {
