@@ -7,8 +7,33 @@
     border: none;
   }
 
+  .month-filter {
+    display: flex;
+    justify-content: center;
+
+    label {
+      margin: 6px 12px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    input {
+      text-align: center;
+      background-color: #e9f1fa;
+      max-width: 30px;
+
+      font-family: "Lato", sans-serif;
+      font-size: 18px;
+      text-align: center;
+      font-weight: bold;
+      background-color: #e9f1fa;
+      border: 1px solid gray;
+      border-radius: 4px;
+      padding: 0;
+    }
+  }
+
   .filter-btns-container {
-    margin-block-end: 5px;
 
     button {
       font-size: 14px;
@@ -54,7 +79,7 @@
       }
 
       .transaction-sum {
-        flex: 1;
+        // flex: 1;
         min-width: 80px;
         font-weight: bold;
         padding: 3px;
@@ -63,7 +88,6 @@
       .transaction-date {
         flex: 1;
         padding: 3px;
-        // margin-inline-end: 20px;
       }
 
       &:nth-child(odd) {

@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import { generateId } from "../services/utilService";
-import { addTransaction } from "../services/transactionService";
 
 export default function AddTransaction({
   transactions,
@@ -16,7 +15,7 @@ export default function AddTransaction({
   const [error, setError] = useState("");
 
   const handleSubmit = () => {
-    if (!date || !category || !sum) {
+    if (!date || !sum) {
       setError("Please fill in all fields");
       setTimeout(() => setError(""), 3000);
       return;
@@ -69,6 +68,7 @@ export default function AddTransaction({
                 type="radio"
                 name="category"
                 value="Expense"
+                checked="checked"
                 onChange={(e) => setCategory(e.target.value)}
               />
               <label htmlFor="expense">Expense</label>

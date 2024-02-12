@@ -72,14 +72,8 @@ export default function Statistics() {
   };
 
   const createChartData = () => {
-    const label1 = `${String(selectedMonth1).padStart(
-      2,
-      "0"
-    )}/${selectedYear1}`;
-    const label2 = `${String(selectedMonth2).padStart(
-      2,
-      "0"
-    )}/${selectedYear2}`;
+    const label1 = `${String(selectedMonth1).padStart(2,"0")}/${selectedYear1}`;
+    const label2 = `${String(selectedMonth2).padStart(2,"0")}/${selectedYear2}`;
 
     const data1 = getExpenseSumsByWeek(
       selectedYear1,

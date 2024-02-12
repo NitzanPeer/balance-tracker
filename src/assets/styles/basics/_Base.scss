@@ -227,7 +227,6 @@ button.clicked {
   background-color: #1c68ff;
 }
 
-
 .not-found-page-container {
   display: flex;
   flex-direction: column;
@@ -250,6 +249,11 @@ button.clicked {
   }
 }
 
+// cancel arrow buttons in number inputs
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
 
 .income-color {
   color: #2ecc71;
