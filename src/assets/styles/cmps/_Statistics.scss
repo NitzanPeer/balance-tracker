@@ -21,7 +21,7 @@
     font-size: 18px;
     display: flex;
     width: 100%;
-    margin: 8px;
+    margin: 6px 6px;
     font-weight: bold;
   }
 
@@ -29,7 +29,7 @@
     display: flex;
 
     label {
-      color: blue;
+      color: #004AFF;
     }
   }
 
@@ -37,7 +37,7 @@
     display: flex;
 
     label {
-      color: orange;
+      color: #FFB500;
     }
   }
 
@@ -47,14 +47,7 @@
 
   .year-input {
     max-width: 60px;
-  }
-
-  .month-label {
-  }
-
-  .year-label {
-    // why is there a margin only for year labels?
-    // margin-inline-end: 0;
+    margin-inline-end: 20px;
   }
 
   .chart {
