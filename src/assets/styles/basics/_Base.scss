@@ -228,17 +228,12 @@ button.clicked {
 }
 
 
-.material-symbols-outlined {
-  // display: flex;
-  // color: #7894cd;
-  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-  font-size: 42px;
-  color: black;
-  background-color: #7894cd;
-  border-radius: 4px;
+.not-found-page-container {
+  display: flex;
+  flex-direction: column;
 
-  &:hover {
-    background-color: #82a7f1;
+  h2 {
+    margin: 30px;
   }
 }
 
@@ -255,14 +250,6 @@ button.clicked {
   }
 }
 
-.not-found-page-container {
-  display: flex;
-  flex-direction: column;
-
-  h2 {
-    margin: 30px;
-  }
-}
 
 .income-color {
   color: #2ecc71;

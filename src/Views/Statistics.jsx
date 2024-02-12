@@ -1,10 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { getTransactions } from "../services/transactionService";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleLeft } from "@fortawesome/free-solid-svg-icons";
-
 import {
   Chart as ChartJS,
   BarElement,
@@ -19,84 +18,100 @@ import { Bar } from "react-chartjs-2";
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 export default function Statistics() {
-  // console.log("🚀 ~ Statistics ~ transactions:", transactions)
-
   const transactions = getTransactions();
 
-  const groupByWeek = () => {
-    const groupedData = {};
+  const getExpenseSumsByWeek = (year, month, transactions) => {
+    const expenseSums = [0, 0, 0, 0];
 
     transactions.forEach((transaction) => {
-      const date = new Date(transaction.date);
-      const month = date.getMonth();
-      const year = date.getFullYear();
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-      let weekOfMonth;
-
-      if (date.getDate() <= 7) {
-        weekOfMonth = 1;
-      } else if (date.getDate() <= 14) {
-        weekOfMonth = 2;
-      } else if (date.getDate() <= 21) {
-        weekOfMonth = 3;
-      } else {
-        weekOfMonth = 4;
-      }
-
-      // If the month has more than 28 days adjust weekOfMonth to be at most 4
-      if (daysInMonth > 28) {
-        weekOfMonth = Math.min(weekOfMonth, 4);
-      }
-
-      const weekLabel = `Week ${weekOfMonth}`;
-
-      if (!groupedData[weekLabel]) {
-        groupedData[weekLabel] = 0;
-      }
-
-      if (!transaction.isIncome) {
-        groupedData[weekLabel] += parseFloat(transaction.sum);
+      const transactionDate = new Date(transaction.date);
+      if (
+        transactionDate.getFullYear() === year &&
+        transactionDate.getMonth() === month - 1 && // Month is 0-based
+        !transaction.isIncome // Exclude incomes
+      ) {
+        const dayOfMonth = transactionDate.getDate();
+        if (dayOfMonth <= 7) {
+          expenseSums[0] += parseFloat(transaction.sum);
+        } else if (dayOfMonth <= 14) {
+          expenseSums[1] += parseFloat(transaction.sum);
+        } else if (dayOfMonth <= 21) {
+          expenseSums[2] += parseFloat(transaction.sum);
+        } else {
+          expenseSums[3] += parseFloat(transaction.sum);
+        }
       }
     });
 
-    return groupedData;
+    return expenseSums;
   };
 
-  const getWeek = (date) => {
-    const d = new Date(date);
-    const firstDayOfMonth = new Date(d.getFullYear(), d.getMonth(), 1);
-    const weekNumber = Math.ceil(
-      (d.getDate() - firstDayOfMonth.getDate() + 1) / 7
-    );
-    return weekNumber;
+  const [selectedYear1, setSelectedYear1] = useState(new Date().getFullYear());
+  const [selectedMonth1, setSelectedMonth1] = useState(
+    new Date().getMonth() + 1
+  );
+  const [selectedYear2, setSelectedYear2] = useState(new Date().getFullYear());
+  const [selectedMonth2, setSelectedMonth2] = useState(
+    new Date().getMonth() + 1
+  );
+
+  const handleYearChange1 = (e) => {
+    setSelectedYear1(parseInt(e.target.value));
+  };
+
+  const handleMonthChange1 = (e) => {
+    setSelectedMonth1(parseInt(e.target.value));
+  };
+
+  const handleYearChange2 = (e) => {
+    setSelectedYear2(parseInt(e.target.value));
+  };
+
+  const handleMonthChange2 = (e) => {
+    setSelectedMonth2(parseInt(e.target.value));
   };
 
   const createChartData = () => {
-    const groupedData = groupByWeek();
-    const labels = Object.keys(groupedData);
-    const data = Object.values(groupedData);
-    return { labels, data };
+    const label1 = `${String(selectedMonth1).padStart(
+      2,
+      "0"
+    )}/${selectedYear1}`;
+    const label2 = `${String(selectedMonth2).padStart(
+      2,
+      "0"
+    )}/${selectedYear2}`;
+
+    const data1 = getExpenseSumsByWeek(
+      selectedYear1,
+      selectedMonth1,
+      transactions
+    );
+
+    const data2 = getExpenseSumsByWeek(
+      selectedYear2,
+      selectedMonth2,
+      transactions
+    );
+
+    return { label1, label2, data1, data2 };
   };
 
-  const { labels, data } = createChartData();
-  // console.log("🚀 ~ Statistics ~ labels:", labels);
-  // console.log("🚀 ~ Statistics ~ data:", data);
+  const { data1, data2, label1, label2 } = createChartData();
 
   const chartData = {
-    labels: labels,
+    labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
     datasets: [
       {
-        label: "This Month",
-        data: data,
+        label: label1,
+        data: data1,
         backgroundColor: "blue",
         borderColor: "black",
         borderWidth: 1,
       },
       {
-        label: "Last Month",
-        data: [3, 7, 3, 4],
-        backgroundColor: "aqua",
+        label: label2,
+        data: data2,
+        backgroundColor: "orange",
         borderColor: "black",
         borderWidth: 1,
       },
@@ -107,11 +122,54 @@ export default function Statistics() {
 
   return (
     <div className="statistics container">
-      <h1>Statistics Baby</h1>
+      <div className="header-container">
+        <h1>Statistics Baby</h1>
+        <div>(Expenses only)</div>
+      </div>
+      <div className="bar1 container">
+        <label className="year-label" htmlFor="yearInput">
+          Year:
+        </label>
+        <input
+          type="number"
+          className="year-input"
+          value={selectedYear1}
+          onChange={handleYearChange1}
+        />
+        <label className="month-label" htmlFor="monthInput">
+          Month:
+        </label>
+        <input
+          type="number"
+          className="month-input"
+          value={selectedMonth1}
+          onChange={handleMonthChange1}
+        />
+      </div>
+      <div className="bar2 container">
+        <label className="year-label" htmlFor="yearInput">
+          Year:
+        </label>
+        <input
+          className="year-input"
+          type="number"
+          value={selectedYear2}
+          onChange={handleYearChange2}
+        />
+        <label className="month-label" htmlFor="monthInput">
+          Month:
+        </label>
+        <input
+          type="number"
+          className="month-input"
+          value={selectedMonth2}
+          onChange={handleMonthChange2}
+        />
+      </div>
       <div>
         <Bar className="chart" data={chartData} options={options}></Bar>
       </div>
-      <Link to="/" title="Back to home page">
+      <Link to="/" title="Back to Home page">
         <FontAwesomeIcon className="font-awesome-icon" icon={faCircleLeft} />
       </Link>
     </div>

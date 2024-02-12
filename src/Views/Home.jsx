@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import "../assets/styles/main.scss";
 import Header from "../components/Header";
 import Balance from "../components/Balance";
@@ -7,15 +6,12 @@ import IncomeExpense from "../components/IncomeExpense";
 import TransactionTable from "../components/TransactionTable";
 import ButtonRow from "../components/ButtonRow";
 import AddTransactionModal from "../components/AddTransactionModal";
-import Statistics from "./Statistics";
 import {
   getTransactions,
   addTransaction,
   removeTransaction,
 } from "../services/transactionService";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChartSimple } from "@fortawesome/free-solid-svg-icons";
 
 export default function Home() {
   const [transactions, setTransactions] = useState([]);
@@ -70,7 +66,7 @@ export default function Home() {
   };
 
   return (
-    <div className="app">
+    <div className="home">
       {/* <Header /> */}
       <Balance balance={balance} />
       <IncomeExpense totalIncome={totalIncome} totalExpense={totalExpense} />
