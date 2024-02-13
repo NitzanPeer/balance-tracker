@@ -11,11 +11,13 @@ import {
   LinearScale,
   Tooltip,
   Legend,
+  ArcElement
 } from "chart.js";
 
+import { Doughnut } from "react-chartjs-2";
 import { Bar } from "react-chartjs-2";
 
-ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
+ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement);
 
 export default function Statistics() {
   const transactions = getTransactions();
@@ -72,8 +74,14 @@ export default function Statistics() {
   };
 
   const createChartData = () => {
-    const label1 = `${String(selectedMonth1).padStart(2,"0")}/${selectedYear1}`;
-    const label2 = `${String(selectedMonth2).padStart(2,"0")}/${selectedYear2}`;
+    const label1 = `${String(selectedMonth1).padStart(
+      2,
+      "0"
+    )}/${selectedYear1}`;
+    const label2 = `${String(selectedMonth2).padStart(
+      2,
+      "0"
+    )}/${selectedYear2}`;
 
     const data1 = getExpenseSumsByWeek(
       selectedYear1,
@@ -116,7 +124,21 @@ export default function Statistics() {
     ],
   };
 
-  const options = {};
+  const options = {
+    responsive: true,
+
+    // maintainAspectRatio: false,
+
+    // Center the chart on the screen
+    // layout: {
+    //   padding: {
+    //     left: 50,
+    //     right: 50,
+    //     top: 0,
+    //     bottom: 0
+    //   }
+    // }
+  };
 
   return (
     <div className="statistics container">
@@ -164,9 +186,12 @@ export default function Statistics() {
           onChange={handleMonthChange2}
         />
       </div>
-      <div>
-        <Bar className="chart" data={chartData} options={options}></Bar>
+      <div className="bar-chart-container">
+        <Bar className="bar-chart" data={chartData} options={options} height={200}/>
       </div>
+      {/* <div className="doughnut-chart-container">
+        <Doughnut className="doughnut-chart" data={chartData} options={options}/>
+      </div> */}
       <Link to="/" title="Back to Home page">
         <FontAwesomeIcon className="font-awesome-icon" icon={faCircleLeft} />
       </Link>

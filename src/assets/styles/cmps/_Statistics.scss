@@ -20,13 +20,13 @@
   label {
     font-size: 18px;
     display: flex;
-    width: 100%;
     margin: 6px 6px;
     font-weight: bold;
   }
 
   .bar1 {
     display: flex;
+    justify-content: center;
 
     label {
       color: #004AFF;
@@ -35,6 +35,8 @@
 
   .bar2 {
     display: flex;
+    justify-content: center;
+
 
     label {
       color: #FFB500;
@@ -50,12 +52,27 @@
     margin-inline-end: 20px;
   }
 
-  .chart {
-    margin: 20px;
-    max-width: 320px;
+  .bar-chart-container {
+
+    .bar-chart {
+      margin: 10px;
+      padding: 10px;
+      max-width: 100%;
+    }
+  }
+
+  .doughnut-chart-container {
+    margin-block-start: 100px;
+    display: flex;
+    justify-content: center;
+
+    .doughnut-chart {
+      max-width: 600px;
+      max-height: 600px;
+    }
   }
 
   a {
-    margin-block-start: 100px;
+    margin-block-start: 60px;
   }
 }

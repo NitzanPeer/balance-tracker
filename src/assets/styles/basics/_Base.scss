@@ -12,23 +12,22 @@
 
 body {
   background-color: #e9f1fa;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
   text-align: center;
   min-height: 100vh;
   margin: 0;
   font-family: "Lato", sans-serif;
   font-size: 18px;
-  width: 100%;
-  max-width: 800px;
   margin: 0 auto;
   height: 100%;
+  width: 100%;
+  max-width: 800px;
+  max-width: 1024px;
 }
 
 .container {
-  margin: 10px auto;
-  //   width: 320px;
+  // margin: 10px auto;
+  margin: 10px;
 }
 
 h1 {
@@ -271,10 +270,73 @@ input::-webkit-inner-spin-button {
   background-color: #e74c3c;
 }
 
+// responsiveness:
+
 @media screen and (min-width: 768px) {
-  /* Styles for tablets and larger screens */
+  body {
+    font-size: 20px;
+
+    .balance {
+      h4 {
+        font-size: 26px;
+      }
+
+      span {
+        font-size: 44px;
+      }
+    }
+
+    .income-expense {
+      h4 {
+        font-size: 26px;
+      }
+
+      span {
+        font-size: 26px;
+      }
+    }
+
+    .btn-row-container {
+      .add-transaction-btn {
+        font-size: 20px;
+      }
+    }
+
+    .transaction-table {
+      .filter-btns-container {
+        button {
+          margin: 0 4px 0 0;
+          padding: 4px;
+          font-size: 18px;
+          width: 80px;
+        }
+      }
+
+      .month-filter {
+        label {
+          font-size: 20px;
+        }
+      }
+    }
+
+    .statistics {
+
+      label {
+        font-size: 20px;
+      }
+
+      input {
+        font-size: 20px;
+      }
+
+      .font-awesome-icon {
+        font-size: 30px;
+      }
+    }
+  }
 }
 
 @media screen and (min-width: 1024px) {
-  /* Styles for desktop screens */
+  body {
+  }
 }
