@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { generateId } from "../services/utilService";
 
 export default function AddTransaction({
@@ -8,11 +8,14 @@ export default function AddTransaction({
   closeModal,
   handleAddTransaction,
 }) {
-  const [date, setDate] = useState("");
+  const today = new Date().toISOString().substring(0,10);  // get a string of today's date to be used as default in the date picker
+
+  const [date, setDate] = useState(today);
   const [category, setCategory] = useState("");
   const [sum, setSum] = useState("");
   const [title, setTitle] = useState("");
   const [error, setError] = useState("");
+
 
   const handleSubmit = () => {
     if (!date || !sum) {
