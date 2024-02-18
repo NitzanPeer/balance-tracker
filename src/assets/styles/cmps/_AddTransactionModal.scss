@@ -1,69 +1,151 @@
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .add-transaction-modal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 30px 30px 10px 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    border: 6px solid #5D74A2;
-    width: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 30px 30px 10px 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 6px solid #5d74a2;
+  width: 300px;
 
-    .modal-content {
-
-        input {
-            font-size: 18px;
-            box-sizing: border-box;
-            border: 2px solid black;
-            border-radius: 5px;
-            margin-block-end: 5px;
-            border: 2px solid #5D74A2;
-        }
-
-        .date-input {
-            font-family: 'Lato', sans-serif;
-            font-size: 18px;
-            padding: 10px;
-            width: 100%;
-        }
-
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-        }
-
-        .submit-btn {
-            border: 2px solid black;
-            margin-block-start: 20px;
-            margin-block-end: 10px;
-        }
-
-        .category-container {
-            display: flex;
-            justify-content: space-evenly;
-            label {
-                margin-inline-start: 8px;
-            }
-        }
-
-        .error {
-            color: red;
-            margin: 10px;
-        }
+  .modal-content {
+    input {
+      font-size: 18px;
+      box-sizing: border-box;
+      border: 2px solid black;
+      border-radius: 5px;
+      margin-block-end: 5px;
+      border: 2px solid #5d74a2;
+      font-family: "Lato", sans-serif;
     }
+
+    .date-input {
+      font-family: "Lato", sans-serif;
+      font-size: 18px;
+      padding: 10px;
+      width: 100%;
+    }
+
+    .category-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      // category-status
+
+      .category-status {
+        margin-inline-start: 30px;
+        font-weight: bold;
+      }
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+
+    .submit-btn {
+      border: none;
+      margin-block-start: 20px;
+      margin-block-end: 10px;
+    }
+
+    .error {
+      color: red;
+      margin: 10px;
+    }
+
+    /* The switch - the box around the slider */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+      place-self: center;
+    }
+
+    /* Hide default HTML checkbox */
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    /* The slider */
+    .slider {
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #e74c3c;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+    }
+
+    input:checked + .slider {
+      background-color: #2ecc71;
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px #2196f3;
+    }
+
+    input:checked + .slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+
+    input:invalid {
+    }
+
+    input:invalid:required {
+    }
+
+    .sum-input:valid,
+    .title-input:valid {
+      border: 2px solid green;
+    }
+    input:valid {
+      border: 2px solid green;
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 34px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+  }
 }

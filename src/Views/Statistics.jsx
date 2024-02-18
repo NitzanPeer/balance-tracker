@@ -1,4 +1,5 @@
 import React from "react";
+import Footer from "../components/Footer"
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { getTransactions } from "../services/transactionService";
@@ -11,18 +12,26 @@ import {
   LinearScale,
   Tooltip,
   Legend,
-  ArcElement
+  ArcElement,
 } from "chart.js";
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-import { Doughnut } from "react-chartjs-2";
+// import { Doughnut } from "react-chartjs-2";
 import { Bar } from "react-chartjs-2";
 
-ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement);
+ChartJS.register(
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend,
+  ArcElement
+);
 
 export default function Statistics() {
   const transactions = getTransactions();
 
-  const getExpenseSumsByWeek = (year, month, transactions) => {
+  const getExpenseSumsByWeek = (year, month, transactions, includeIncome=false) => {
     const expenseSums = [0, 0, 0, 0];
 
     transactions.forEach((transaction) => {
@@ -30,17 +39,22 @@ export default function Statistics() {
       if (
         transactionDate.getFullYear() === year &&
         transactionDate.getMonth() === month - 1 && // Month is 0-based
-        !transaction.isIncome // Exclude incomes
+        (includeIncome || !transaction.isIncome) // Exclude incomes
       ) {
         const dayOfMonth = transactionDate.getDate();
+        let sum = parseFloat(transaction.sum)
+
+        let index = Math.max(Math.ceil(dayOfMonth / 7) - 1, 3);
+
+
         if (dayOfMonth <= 7) {
-          expenseSums[0] += parseFloat(transaction.sum);
+          expenseSums[0] += sum;
         } else if (dayOfMonth <= 14) {
-          expenseSums[1] += parseFloat(transaction.sum);
+          expenseSums[1] += sum;
         } else if (dayOfMonth <= 21) {
-          expenseSums[2] += parseFloat(transaction.sum);
+          expenseSums[2] += sum;
         } else {
-          expenseSums[3] += parseFloat(transaction.sum);
+          expenseSums[3] += sum;
         }
       }
     });
@@ -48,40 +62,31 @@ export default function Statistics() {
     return expenseSums;
   };
 
-  const [selectedYear1, setSelectedYear1] = useState(new Date().getFullYear());
-  const [selectedMonth1, setSelectedMonth1] = useState(
-    new Date().getMonth() + 1
-  );
-  const [selectedYear2, setSelectedYear2] = useState(new Date().getFullYear());
-  const [selectedMonth2, setSelectedMonth2] = useState(
-    new Date().getMonth() + 1
-  );
+  const currYear = new Date().getFullYear();
+  const currMonth = new Date().getMonth() + 1;
 
-  const handleYearChange1 = (e) => {
-    setSelectedYear1(parseInt(e.target.value));
-  };
+  // Calculate the last month
+  const currentDate = new Date();
+  currentDate.setMonth(currentDate.getMonth() - 1);
+  const lastMonthsYear = currentDate.getFullYear();
+  const lastMonth = currentDate.getMonth() + 1;
+
+  const [selectedYear1, setSelectedYear1] = useState(currYear);
+  const [selectedMonth1, setSelectedMonth1] = useState(currMonth);
+  const [selectedYear2, setSelectedYear2] = useState(lastMonthsYear);
+  const [selectedMonth2, setSelectedMonth2] = useState(lastMonth);
 
   const handleMonthChange1 = (e) => {
-    setSelectedMonth1(parseInt(e.target.value));
-  };
-
-  const handleYearChange2 = (e) => {
-    setSelectedYear2(parseInt(e.target.value));
+    setSelectedMonth1(parseInt(e.target.value.substring(5, 7)));
   };
 
   const handleMonthChange2 = (e) => {
-    setSelectedMonth2(parseInt(e.target.value));
+    setSelectedMonth2(parseInt(e.target.value.substring(5, 7)));
   };
 
   const createChartData = () => {
-    const label1 = `${String(selectedMonth1).padStart(
-      2,
-      "0"
-    )}/${selectedYear1}`;
-    const label2 = `${String(selectedMonth2).padStart(
-      2,
-      "0"
-    )}/${selectedYear2}`;
+    const label1 = `${String(selectedMonth1).padStart(2, "0")}/${selectedYear1}`;
+    const label2 = `${String(selectedMonth2).padStart(2, "0")}/${selectedYear2}`;
 
     const data1 = getExpenseSumsByWeek(
       selectedYear1,
@@ -106,19 +111,20 @@ export default function Statistics() {
       {
         label: label1,
         data: data1,
-        // backgroundColor: "rgb(0, 0, 255)",
         // backgroundColor: "rgb(0, 0, 255, 0.4)",
-        backgroundColor: "#004AFF",
-        borderColor: "black",
+        // backgroundColor: "rgba(54, 162, 235, 0.2)",
+        // borderColor: "rgb(54, 162, 235)",
+        backgroundColor: "rgba(153, 102, 255, 0.2)",
+        // backgroundColor: "$chart1-light",
+        borderColor: "rgb(153, 102, 255)",
+        // borderColor: "$chart1-dark",
         borderWidth: 1,
       },
       {
         label: label2,
         data: data2,
-        // backgroundColor: "rgb(255, 166, 0)",
-        // backgroundColor: "rgb(255, 166, 0, 0.4)",
-        backgroundColor: "#FFB500",
-        borderColor: "black",
+        backgroundColor: "rgba(255, 159, 64, 0.2)",
+        borderColor: "rgb(255, 159, 64)",
         borderWidth: 1,
       },
     ],
@@ -126,75 +132,71 @@ export default function Statistics() {
 
   const options = {
     responsive: true,
-
-    // maintainAspectRatio: false,
-
-    // Center the chart on the screen
-    // layout: {
-    //   padding: {
-    //     left: 50,
-    //     right: 50,
-    //     top: 0,
-    //     bottom: 0
-    //   }
-    // }
+    datalabels: {
+      display: true,
+      color: "white",
+    },
+    scales: {
+      x: {
+        grid: {
+          drawOnChartArea: false,
+        },
+      },
+      y: {
+        grid: {
+          drawOnChartArea: false,
+        },
+      },
+    },
   };
 
   return (
-    <div className="statistics container">
-      <div className="header-container">
+    <div className="statistics">
+      <div className="top container">
+        <Link className="back-btn" to="/" title="Back to Home page">
+          <FontAwesomeIcon className="font-awesome-icon" icon={faCircleLeft} />
+        </Link>
+      </div>
+      <div className="header-container container">
         <h1>Statistics Baby</h1>
         <div>(Expenses only)</div>
       </div>
-      <div className="bar1 container">
-        <label className="year-label" htmlFor="yearInput">
-          Year:
-        </label>
-        <input
-          type="number"
-          className="year-input"
-          value={selectedYear1}
-          onChange={handleYearChange1}
-        />
-        <label className="month-label" htmlFor="monthInput">
-          Month:
-        </label>
-        <input
-          type="number"
-          className="month-input"
-          value={selectedMonth1}
-          onChange={handleMonthChange1}
-        />
+      <div className="bars container">
+        <div className="bar1-inputs container">
+          <input
+            type="month"
+            id="monthInput1"
+            name="start"
+            min="2024-01"
+            value={`${selectedYear1}-${String(selectedMonth1).padStart(2, "0")}`}
+            onChange={handleMonthChange1}
+          />
+        </div>
+        <div className="bar2-inputs container">
+          <input
+            type="month"
+            id="monthInput2"
+            name="start"
+            min="2024-01"
+            value={`${selectedYear2}-${String(selectedMonth2).padStart(2, "0")}`}
+            onChange={handleMonthChange2}
+          />
+        </div>
       </div>
-      <div className="bar2 container">
-        <label className="year-label" htmlFor="yearInput">
-          Year:
-        </label>
-        <input
-          className="year-input"
-          type="number"
-          value={selectedYear2}
-          onChange={handleYearChange2}
+      <div className="bar-chart-container container">
+        <Bar
+          className="bar-chart"
+          data={chartData}
+          plugins={[ChartDataLabels]}
+          options={options}
+          height={200}
         />
-        <label className="month-label" htmlFor="monthInput">
-          Month:
-        </label>
-        <input
-          type="number"
-          className="month-input"
-          value={selectedMonth2}
-          onChange={handleMonthChange2}
-        />
-      </div>
-      <div className="bar-chart-container">
-        <Bar className="bar-chart" data={chartData} options={options} height={200}/>
       </div>
       {/* <div className="doughnut-chart-container">
         <Doughnut className="doughnut-chart" data={chartData} options={options}/>
       </div> */}
-      <Link to="/" title="Back to Home page">
-        <FontAwesomeIcon className="font-awesome-icon" icon={faCircleLeft} />
-      </Link>
+      <Footer/>
     </div>
+
   );
 }

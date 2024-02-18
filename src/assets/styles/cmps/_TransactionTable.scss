@@ -2,50 +2,66 @@
   border: 2px solid black;
   border-radius: 10px;
   padding: 2px;
-  margin: 10px;
+  min-width: 300px;
 
   button {
+    background-color: #e9f1fa;
     border: none;
+    border-bottom: 3px solid;
+  }
+
+  .category-container,
+  .month-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+
+    &:first-child {
+    }
+  }
+
+  .month-inner {
+    display: flex;
+    justify-content: center;
   }
 
   .month-filter {
     display: flex;
     justify-content: center;
 
-    label {
-      margin: 6px 12px;
-      font-size: 18px;
-      font-weight: bold;
-    }
-
     input {
       text-align: center;
       background-color: #e9f1fa;
-      max-width: 30px;
 
       font-family: "Lato", sans-serif;
       font-size: 18px;
       text-align: center;
       font-weight: bold;
       background-color: #e9f1fa;
-      border: 1px solid gray;
+      border: 2px solid black;
       border-radius: 4px;
       padding: 0;
     }
   }
 
   .filter-btns-container {
-
     button {
       font-size: 14px;
       border-radius: 4px;
       width: 70px;
       padding: 2px;
-      margin-inline-end: 2px;
+      border-radius: 0px;
+      margin: 0;
+    }
+
+    button.clicked {
+      // background-color: #1c68ff;
+      border-color: #7894cd;
     }
   }
 
   .transaction-list {
+    overflow: auto;
+    max-height: calc(100vh - 510px);
 
     li {
       display: flex;
@@ -54,18 +70,6 @@
       align-items: center;
       justify-content: space-around;
       font-weight: bold;
-
-      // .transaction-ball {
-      //   margin-inline-start: 20px;
-      //   margin-inline-end: 20px;
-      //   padding: 3px;
-
-      //   .ball {
-      //     min-width: 20px;
-      //     height: 20px;
-      //     border-radius: 50%;
-      //   }
-      // }
 
       .transaction-title {
         flex: 1;
@@ -78,7 +82,7 @@
       }
 
       .transaction-sum {
-        // flex: 1;
+        flex: 1;
         min-width: 80px;
         font-weight: bold;
         padding: 3px;

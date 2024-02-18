@@ -2,19 +2,10 @@ import React from "react";
 
 export default function Transaction({ transaction, handleRemoveTransaction }) {
   const formattedDate = new Date(transaction.date).toLocaleDateString("en-GB"); // 'en-GB' for dd/mm/yyyy format
-  const isHebrew = transaction.title.match(/[\u0590-\u05FF]/); // checks if title is in hebrew so the text-overflow: ellipsis know's which direction to show
+  const isHebrew = transaction.title.match(/[\u0590-\u05FF]/); // checks if title is in hebrew so the text-overflow: ellipsis knows which direction to show
 
   return (
     <li key={transaction.id} className="transaction">
-      {/* <div className="transaction-ball">
-        <div
-          className={`ball ${
-            transaction.category === "Income"
-              ? "income-background"
-              : "expense-background"
-          }`}
-        ></div>
-      </div> */}
       <div
         className="transaction-title"
         title={transaction.title}

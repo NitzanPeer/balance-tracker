@@ -3,19 +3,16 @@ import { useState, useEffect } from "react";
 import { generateId } from "../services/utilService";
 
 export default function AddTransaction({
-  transactions,
-  setTransactions,
   closeModal,
   handleAddTransaction,
 }) {
-  const today = new Date().toISOString().substring(0,10);  // get a string of today's date to be used as default in the date picker
+  const today = new Date().toISOString().substring(0, 10); // get a string of today's date to be used as default
 
   const [date, setDate] = useState(today);
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("Expense");
   const [sum, setSum] = useState("");
   const [title, setTitle] = useState("");
   const [error, setError] = useState("");
-
 
   const handleSubmit = () => {
     if (!date || !sum) {
@@ -43,39 +40,31 @@ export default function AddTransaction({
             X
           </span>
           <input
-            className="title-input"
-            type="text"
-            placeholder="Title"
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <input
             className="sum-input"
             type="number"
-            placeholder="Sum"
+            placeholder="Enter a sum"
             onChange={(e) => setSum(e.target.value)}
+            required
+          />
+          <input
+            className="title-input"
+            type="text"
+            placeholder="Enter a title"
+            onChange={(e) => setTitle(e.target.value)}
+            required
           />
           <div className="category-container">
-            <div>
-              <input
-                className="category-input"
-                type="radio"
-                name="category"
-                value="Income"
-                onChange={(e) => setCategory(e.target.value)}
-              />
-              <label htmlFor="income">Income</label>
-            </div>
-            <div>
-              <input
-                className="category-input"
-                type="radio"
-                name="category"
-                value="Expense"
-                checked="checked"
-                onChange={(e) => setCategory(e.target.value)}
-              />
-              <label htmlFor="expense">Expense</label>
-            </div>
+              <label className="category-status">{category}</label>
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  onChange={(e) =>
+                    setCategory(e.target.checked ? "Income" : "Expense")
+                  }
+                  required
+                />
+                <span className="slider round"></span>
+              </label>
           </div>
           <input
             className="date-input"

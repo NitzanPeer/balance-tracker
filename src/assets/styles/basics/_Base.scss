@@ -11,11 +11,12 @@
 }
 
 body {
-  background-color: #e9f1fa;
-  display: grid;
+  // background-color: #e9f1fa;
+  // display: grid;
+  display: flex;
+  flex-direction: column;
   text-align: center;
   min-height: 100vh;
-  margin: 0;
   font-family: "Lato", sans-serif;
   font-size: 18px;
   margin: 0 auto;
@@ -26,9 +27,9 @@ body {
 
 .container {
   // margin: 10px auto;
-  margin: 10px;
+  // margin: 10px;
+  margin: 4px;
 }
-
 
 h1 {
   letter-spacing: 1px;
@@ -68,14 +69,6 @@ h4 {
   font-size: 20px;
   letter-spacing: 1px;
   margin: 5px 0;
-}
-
-.money.plus {
-  color: #2ecc71;
-}
-
-.money.minus {
-  color: #c0392b;
 }
 
 label {
@@ -126,14 +119,6 @@ input[type="number"] {
   position: relative;
   padding: 10px;
   margin: 10px 0;
-}
-
-.list li.plus {
-  border-right: 5px solid #2ecc71;
-}
-
-.list li.minus {
-  border-right: 5px solid #c0392b;
 }
 
 .delete-btn {
@@ -222,9 +207,7 @@ button {
   }
 }
 
-button.clicked {
-  background-color: #1c68ff;
-}
+
 
 .not-found-page-container {
   display: flex;
@@ -305,7 +288,7 @@ input::-webkit-inner-spin-button {
     .transaction-table {
       .filter-btns-container {
         button {
-          margin: 0 4px 0 0;
+          // margin: 0 4px 0 0;
           padding: 4px;
           font-size: 18px;
           width: 80px;
@@ -320,7 +303,6 @@ input::-webkit-inner-spin-button {
     }
 
     .statistics {
-
       label {
         font-size: 20px;
       }
@@ -340,3 +322,55 @@ input::-webkit-inner-spin-button {
   body {
   }
 }
+
+// UI improvements:
+
+html {
+  background: linear-gradient(to bottom left, #00f7ff, #ffffff);
+  // background: linear-gradient(to bottom, #00f7ff, #ffffff);
+}
+
+
+.home {
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  min-height: 100vh;
+
+  .top{
+
+    .statistics-btn {
+      svg {
+        width: 30px;
+      }
+    }
+  }
+
+  .balance,
+  .income-expense .income,
+  .income-expense .expense,
+  .transaction-table {
+    background-color: #e9f1fa;
+  }
+}
+
+.statistics {
+  .bar1-inputs input,
+  .bar2-inputs input {
+    background-color: #2fefe0;
+  }
+
+  .header-container,
+  .bars,
+  .bars input,
+  .bar-chart-container
+  {
+    background-color: #e9f1fa;
+  }
+}
+
+.top {
+  text-align: start;
+}
+
+
