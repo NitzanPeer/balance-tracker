@@ -4,8 +4,18 @@ import react from "@vitejs/plugin-react";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/balance-tracker/',
+  // base: "/balance-tracker/",
   build: {
     outDir: "dist",
+  },
+  esbuild: {
+    loader: "jsx",
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      loader: {
+        ".js": "jsx",
+      },
+    },
   },
 });
