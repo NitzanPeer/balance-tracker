@@ -1,0 +1,22 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  min-height: 100vh;
+
+  .top {
+    text-align: start;
+
+    .statistics-btn {
+      svg {
+        width: 30px;
+      }
+    }
+  }
+
+  .balance,
+  .income-expense .income,
+  .income-expense .expense {
+    background-color: #e9f1fa;
+  }
+}

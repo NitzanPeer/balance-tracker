@@ -1,6 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Transaction from "./Transaction";
+import { compareDates } from "../../services/utilService";
+import FilterBtn from "../FilterBtn";
 
 export default function TransactionTable({
   transactions,
@@ -13,19 +15,9 @@ export default function TransactionTable({
   const [filterType, setFilterType] = useState("all");
   const [selectedMonth, setSelectedMonth] = useState(currMonthAndYear);
 
-  const handleFilterChange = (type) => {
-    setFilterType(type);
-  };
-
-  const handleMonthChange = (e) => {
-    setSelectedMonth(e.target.value);
-  };
-
-  // a function the sort uses to sort transactions by date
-  const compareDates = (a, b) => {
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
-    return dateB - dateA;
+  const handleChange = (changeType, e = null, filterType = null) => {
+    if (changeType === "month") setSelectedMonth(e.target.value);
+    else if (changeType === "filter") setFilterType(filterType);
   };
 
   useEffect(() => {
@@ -58,24 +50,21 @@ export default function TransactionTable({
         <label>Category:</label>
 
         <div className="filter-btns-container">
-          <button
-            className={`${filterType === "all" ? "clicked" : ""}`}
-            onClick={() => handleFilterChange("all")}
-          >
-            All
-          </button>
-          <button
-            className={`${filterType === "income" ? "clicked" : ""}`}
-            onClick={() => handleFilterChange("income")}
-          >
-            Income
-          </button>
-          <button
-            className={`${filterType === "expense" ? "clicked" : ""}`}
-            onClick={() => handleFilterChange("expense")}
-          >
-            Expense
-          </button>
+          <FilterBtn
+            filterType={"all"}
+            currFilterType={filterType}
+            handleChange={handleChange}
+          />
+          <FilterBtn
+            filterType={"income"}
+            currFilterType={filterType}
+            handleChange={handleChange}
+          />
+          <FilterBtn
+            filterType={"expense"}
+            currFilterType={filterType}
+            handleChange={handleChange}
+          />
         </div>
       </div>
 
@@ -90,7 +79,7 @@ export default function TransactionTable({
               name="start"
               min="2024-01"
               value={selectedMonth}
-              onChange={handleMonthChange}
+              onChange={(e) => handleChange("month", e)}
             />
           </div>
         </div>

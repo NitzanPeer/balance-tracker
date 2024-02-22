@@ -3,6 +3,11 @@
   border-radius: 10px;
   padding: 2px;
   min-width: 300px;
+  background-color: $background4;
+
+  label {
+    font-weight: bold;
+  }
 
   button {
     background-color: #e9f1fa;
@@ -14,9 +19,6 @@
   .month-container {
     display: grid;
     grid-template-columns: 1fr 2fr;
-
-    &:first-child {
-    }
   }
 
   .month-inner {
@@ -51,17 +53,21 @@
       padding: 2px;
       border-radius: 0px;
       margin: 0;
+      background-color: $background4;
+
+      &:hover {
+        border-color: $btns-hover;
+      }
     }
 
     button.clicked {
-      // background-color: #1c68ff;
-      border-color: #7894cd;
+      border-color: $btns;
     }
   }
 
   .transaction-list {
     overflow: auto;
-    max-height: calc(100vh - 510px);
+    max-height: calc(100vh - 540px);
 
     li {
       display: flex;
@@ -70,6 +76,10 @@
       align-items: center;
       justify-content: space-around;
       font-weight: bold;
+
+      &:hover .remove-transaction-btn {
+        opacity: 1;
+      }
 
       .transaction-title {
         flex: 1;
@@ -94,12 +104,43 @@
       }
 
       &:nth-child(odd) {
-        background-color: rgb(230, 230, 230, 0.6);
+        background-color: rgba(230, 230, 230, 0.6);
       }
 
       &:nth-child(even) {
-        background-color: rgb(255, 255, 255, 0.6);
+        background-color: rgba(255, 255, 255, 0.6);
       }
+
+        .remove-transaction-btn {
+          flex: 1;
+          font-size: 20px;
+          line-height: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 20px;
+          max-width: 26px;
+          max-height: 26px;
+          background-color: $btns;
+          border-radius: 4px;
+          margin-inline-end: 10px;
+
+          opacity: 0;
+          transition: opacity 0.3s ease;
+
+          &:hover {
+            background-color: $btns-hover;
+          }
+        }
+    }
+  }
+}
+
+@media (hover: hover) {
+
+  .transaction-table {
+    .remove-transaction-btn {
+      opacity: 1;
     }
   }
 }

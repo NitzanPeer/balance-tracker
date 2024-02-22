@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { generateId } from "../services/utilService";
+import { generateId } from "../../services/utilService";
 
 export default function AddTransaction({
   closeModal,
@@ -53,7 +53,7 @@ export default function AddTransaction({
             onChange={(e) => setTitle(e.target.value)}
             required
           />
-          <div className="category-container">
+          <div className="category-switch-container">
               <label className="category-status">{category}</label>
               <label className="switch">
                 <input

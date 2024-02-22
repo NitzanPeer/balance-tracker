@@ -4,12 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChartSimple } from "@fortawesome/free-solid-svg-icons";
 import "../assets/styles/main.scss";
 
-import Header from "../components/Header";
-import Balance from "../components/Balance";
-import IncomeExpense from "../components/IncomeExpense";
-import TransactionTable from "../components/TransactionTable";
-import ButtonRow from "../components/ButtonRow";
-import AddTransactionModal from "../components/AddTransactionModal";
+// import Header from "../components/Header";
+import Balance from "../components/home/Balance";
+import IncomeExpense from "../components/home/IncomeExpense";
+import TransactionTable from "../components/home/TransactionTable";
+import ButtonRow from "../components/home/ButtonRow";
+import AddTransactionModal from "../components/home/AddTransactionModal";
 import Footer from "../components/Footer";
 
 import {

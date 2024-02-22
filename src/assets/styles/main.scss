@@ -1,8 +1,13 @@
 
 // basics
 
-@import 'basics/Base';
 @import 'basics/Colors';
+@import 'basics/Base';
+
+// views
+
+@import 'views/Home';
+@import 'views/Statistics';
 
 // cmps
 
@@ -11,6 +16,5 @@
 @import 'cmps/IncomeExpense';
 @import 'cmps/TransactionTable';
 @import 'cmps/Header';
-@import 'cmps/Statistics';
 @import 'cmps/ButtonRow';
 @import 'cmps/Footer';

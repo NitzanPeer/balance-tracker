@@ -1,5 +1,7 @@
 import React from "react";
-import Footer from "../components/Footer"
+import StatisticsHeader from "../components/statistics/StatisticsHeader";
+import Footer from "../components/Footer";
+import DatePickers from "../components/statistics/DatePickers";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { getTransactions } from "../services/transactionService";
@@ -14,7 +16,7 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
-import ChartDataLabels from 'chartjs-plugin-datalabels';
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
 // import { Doughnut } from "react-chartjs-2";
 import { Bar } from "react-chartjs-2";
@@ -31,7 +33,12 @@ ChartJS.register(
 export default function Statistics() {
   const transactions = getTransactions();
 
-  const getExpenseSumsByWeek = (year, month, transactions, includeIncome=false) => {
+  const getExpenseSumsByWeek = (
+    year,
+    month,
+    transactions,
+    includeIncome = false
+  ) => {
     const expenseSums = [0, 0, 0, 0];
 
     transactions.forEach((transaction) => {
@@ -42,20 +49,11 @@ export default function Statistics() {
         (includeIncome || !transaction.isIncome) // Exclude incomes
       ) {
         const dayOfMonth = transactionDate.getDate();
-        let sum = parseFloat(transaction.sum)
+        let sum = parseFloat(transaction.sum);
 
-        let index = Math.max(Math.ceil(dayOfMonth / 7) - 1, 3);
-
-
-        if (dayOfMonth <= 7) {
-          expenseSums[0] += sum;
-        } else if (dayOfMonth <= 14) {
-          expenseSums[1] += sum;
-        } else if (dayOfMonth <= 21) {
-          expenseSums[2] += sum;
-        } else {
-          expenseSums[3] += sum;
-        }
+        let index = Math.max(Math.ceil(dayOfMonth / 7) - 1);
+        if (index > 3) index = 3;
+        expenseSums[index] += sum;
       }
     });
 
@@ -76,17 +74,29 @@ export default function Statistics() {
   const [selectedYear2, setSelectedYear2] = useState(lastMonthsYear);
   const [selectedMonth2, setSelectedMonth2] = useState(lastMonth);
 
-  const handleMonthChange1 = (e) => {
-    setSelectedMonth1(parseInt(e.target.value.substring(5, 7)));
-  };
+  const handleMonthChange = (inputNum, e) => {
+    const selectedValue = e.target.value;
+    const selectedMonth = parseInt(selectedValue.substring(5, 7));
+    const selectedYear = parseInt(selectedValue.substring(0, 4));
 
-  const handleMonthChange2 = (e) => {
-    setSelectedMonth2(parseInt(e.target.value.substring(5, 7)));
+    if (inputNum === 1) {
+      setSelectedMonth1(selectedMonth);
+      setSelectedYear1(selectedYear);
+    } else {
+      setSelectedMonth2(selectedMonth);
+      setSelectedYear2(selectedYear);
+    }
   };
 
   const createChartData = () => {
-    const label1 = `${String(selectedMonth1).padStart(2, "0")}/${selectedYear1}`;
-    const label2 = `${String(selectedMonth2).padStart(2, "0")}/${selectedYear2}`;
+    const label1 = `${String(selectedMonth1).padStart(
+      2,
+      "0"
+    )}/${selectedYear1}`;
+    const label2 = `${String(selectedMonth2).padStart(
+      2,
+      "0"
+    )}/${selectedYear2}`;
 
     const data1 = getExpenseSumsByWeek(
       selectedYear1,
@@ -111,13 +121,8 @@ export default function Statistics() {
       {
         label: label1,
         data: data1,
-        // backgroundColor: "rgb(0, 0, 255, 0.4)",
-        // backgroundColor: "rgba(54, 162, 235, 0.2)",
-        // borderColor: "rgb(54, 162, 235)",
         backgroundColor: "rgba(153, 102, 255, 0.2)",
-        // backgroundColor: "$chart1-light",
         borderColor: "rgb(153, 102, 255)",
-        // borderColor: "$chart1-dark",
         borderWidth: 1,
       },
       {
@@ -157,46 +162,26 @@ export default function Statistics() {
           <FontAwesomeIcon className="font-awesome-icon" icon={faCircleLeft} />
         </Link>
       </div>
-      <div className="header-container container">
-        <h1>Statistics Baby</h1>
-        <div>(Expenses only)</div>
-      </div>
-      <div className="bars container">
-        <div className="bar1-inputs container">
-          <input
-            type="month"
-            id="monthInput1"
-            name="start"
-            min="2024-01"
-            value={`${selectedYear1}-${String(selectedMonth1).padStart(2, "0")}`}
-            onChange={handleMonthChange1}
-          />
-        </div>
-        <div className="bar2-inputs container">
-          <input
-            type="month"
-            id="monthInput2"
-            name="start"
-            min="2024-01"
-            value={`${selectedYear2}-${String(selectedMonth2).padStart(2, "0")}`}
-            onChange={handleMonthChange2}
-          />
-        </div>
-      </div>
+      <StatisticsHeader/>
+      <DatePickers
+      selectedYear1={selectedYear1}
+      selectedMonth1={selectedMonth1}
+      selectedYear2={selectedYear2}
+      selectedMonth2={selectedMonth2}
+      handleMonthChange={handleMonthChange}/>
       <div className="bar-chart-container container">
         <Bar
           className="bar-chart"
           data={chartData}
           plugins={[ChartDataLabels]}
           options={options}
-          height={200}
+          height={220}
         />
       </div>
       {/* <div className="doughnut-chart-container">
         <Doughnut className="doughnut-chart" data={chartData} options={options}/>
       </div> */}
-      <Footer/>
+      <Footer />
     </div>
-
   );
 }

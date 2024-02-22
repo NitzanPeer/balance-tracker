@@ -1,17 +1,19 @@
 .balance {
     border: solid 2px;
     border-radius: 10px;
-    padding: 20px;
+    padding: 14px;
     font-size: 20px;
     min-width: 300px;
 
     h4 {
-        font-size: 24px;
+        font-size: 30px;
         margin: 0 0 10px 0;
     }
 
     span {
-        font-size: 40px;
+        font-size: 60px;
         font-weight: bold;
+        padding: 4px;
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     }
 }

@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function balance({ balance }) {
   return (
     <div className="balance container">
