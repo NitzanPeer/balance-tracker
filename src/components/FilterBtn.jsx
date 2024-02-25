@@ -1,5 +1,4 @@
-export default function FilterBtn({  filterType, currFilterType, handleChange}) {
-
+export default function FilterBtn({ filterType, currFilterType, handleChange }) {
   return (
     <button
       className={`${currFilterType === filterType ? "clicked" : ""}`}

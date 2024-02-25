@@ -21,12 +21,12 @@ export default function Transaction({ transaction, handleRemoveTransaction }) {
         {`₪${transaction.sum}`}
       </div>
       <div className="transaction-date">{formattedDate}</div>
-        <button
-          className="remove-transaction-btn"
-          onClick={() => handleRemoveTransaction(transaction.id)}
-        >
-          x
-        </button>
+      <button
+        className="remove-transaction-btn"
+        onClick={() => handleRemoveTransaction(transaction.id)}
+      >
+        x
+      </button>
     </li>
   );
 }

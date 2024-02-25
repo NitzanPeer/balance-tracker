@@ -3,7 +3,7 @@
   border-radius: 10px;
   padding: 2px;
   min-width: 300px;
-  background-color: $background4;
+  background-color: $background3;
 
   label {
     font-weight: bold;
@@ -103,11 +103,11 @@
       }
 
       &:nth-child(odd) {
-        background-color: rgba(230, 230, 230, 0.6);
+        background-color: rgba(255, 255, 255, 0.6);
       }
 
       &:nth-child(even) {
-        background-color: rgba(255, 255, 255, 0.6);
+        background-color: rgba(230, 230, 230, 0.6);
       }
 
         .remove-transaction-btn {

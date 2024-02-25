@@ -12,11 +12,7 @@ import ButtonRow from "../components/home/ButtonRow";
 import AddTransactionModal from "../components/home/AddTransactionModal";
 import Footer from "../components/Footer";
 
-import {
-  getTransactions,
-  addTransaction,
-  removeTransaction,
-} from "../services/transactionService";
+import { getTransactions, addTransaction, removeTransaction } from "../services/transactionService";
 
 export default function Home() {
   const [transactions, setTransactions] = useState([]);
@@ -63,9 +59,7 @@ export default function Home() {
     const conf = confirm("Delete this transaction?");
     if (conf) {
       removeTransaction(transactions, id);
-      const updatedTransactions = transactions.filter(
-        (transaction) => transaction.id !== id
-      );
+      const updatedTransactions = transactions.filter((transaction) => transaction.id !== id);
       setTransactions(updatedTransactions);
     }
   };

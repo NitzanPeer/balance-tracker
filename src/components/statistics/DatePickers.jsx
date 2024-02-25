@@ -7,22 +7,27 @@ export default function DatePickers({
   selectedMonth1,
   selectedYear2,
   selectedMonth2,
+  monthlySum1,
+  monthlySum2,
   handleMonthChange,
 }) {
   return (
     <div className="date-pickers container">
-      <div>
+      <div className="date-picker-wrapper">
         <DatePickerInput
           inputNum={1}
           selectedYear={selectedYear1}
           selectedMonth={selectedMonth1}
           handleMonthChange={handleMonthChange}
         />
-
+        
         {/* <FontAwesomeIcon className="font-awesome-icon" icon={faChevronDown} /> */}
+        <div className="monthly-sum-wrapper">
+        <h5>{`Total Expenses: ₪${monthlySum1}`}</h5>
+        </div>
       </div>
 
-      <div>
+      <div className="date-picker-wrapper">
         <DatePickerInput
           inputNum={2}
           selectedYear={selectedYear2}
@@ -30,6 +35,9 @@ export default function DatePickers({
           handleMonthChange={handleMonthChange}
         />
         {/* <FontAwesomeIcon className="font-awesome-icon" icon={faChevronDown} /> */}
+        <div className="monthly-sum-wrapper">
+          <h5>{`Total Expenses: ₪${monthlySum2}`}</h5>
+        </div>
       </div>
     </div>
   );

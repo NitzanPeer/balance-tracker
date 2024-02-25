@@ -2,10 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { generateId } from "../../services/utilService";
 
-export default function AddTransaction({
-  closeModal,
-  handleAddTransaction,
-}) {
+export default function AddTransaction({ closeModal, handleAddTransaction }) {
   const today = new Date().toISOString().substring(0, 10); // get a string of today's date to be used as default
 
   const [date, setDate] = useState(today);
@@ -15,7 +12,7 @@ export default function AddTransaction({
   const [error, setError] = useState("");
 
   const handleSubmit = () => {
-    if (!date || !sum) {
+    if (!date || !sum || !title) {
       setError("Please fill in all fields");
       setTimeout(() => setError(""), 3000);
       return;
@@ -54,17 +51,15 @@ export default function AddTransaction({
             required
           />
           <div className="category-switch-container">
-              <label className="category-status">{category}</label>
-              <label className="switch">
-                <input
-                  type="checkbox"
-                  onChange={(e) =>
-                    setCategory(e.target.checked ? "Income" : "Expense")
-                  }
-                  required
-                />
-                <span className="slider round"></span>
-              </label>
+            <label className="category-status">{category}</label>
+            <label className="switch">
+              <input
+                type="checkbox"
+                onChange={(e) => setCategory(e.target.checked ? "Income" : "Expense")}
+                required
+              />
+              <span className="slider round"></span>
+            </label>
           </div>
           <input
             className="date-input"

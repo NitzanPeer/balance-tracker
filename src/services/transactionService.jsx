@@ -14,17 +14,13 @@ export function addTransaction(transactions, newTransaction) {
 }
 
 export function removeTransaction(transactions, id) {
-  const updatedTransactions = transactions.filter(
-    (transaction) => transaction.id !== id
-  );
+  const updatedTransactions = transactions.filter((transaction) => transaction.id !== id);
   saveToLocalStorage(TRANSACTIONS_KEY, updatedTransactions);
   return updatedTransactions;
 }
 
 export function updateTransaction(transactions, updatedTransaction) {
-  const index = transactions.findIndex(
-    (transaction) => transaction.id === updatedTransaction.id
-  );
+  const index = transactions.findIndex((transaction) => transaction.id === updatedTransaction.id);
 
   if (index === -1) {
     // If no transaction found, return the original transactions array

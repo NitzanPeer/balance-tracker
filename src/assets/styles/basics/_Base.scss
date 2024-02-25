@@ -227,17 +227,19 @@ input {
 
 // make month input trigger if clicked all around the input instead of just the icon
 input::-webkit-calendar-picker-indicator {
-  background: transparent;
-  bottom: 0;
-  color: transparent;
   cursor: pointer;
+  color: transparent;
   height: auto;
-  left: 0;
+  width: auto;
   position: absolute;
+  bottom: 0;
+  left: 0;
   right: 0;
   top: 0;
-  width: auto;
+  background: transparent;
 }
+
+
 
 .income-color {
   color: #2ecc71;
@@ -318,6 +320,10 @@ input::-webkit-calendar-picker-indicator {
 
       .date-pickers {
         input {
+          font-size: 20px;
+        }
+
+        h5 {
           font-size: 20px;
         }
       }

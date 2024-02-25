@@ -4,10 +4,7 @@ import Transaction from "./Transaction";
 import { compareDates } from "../../services/utilService";
 import FilterBtn from "../FilterBtn";
 
-export default function TransactionTable({
-  transactions,
-  handleRemoveTransaction,
-}) {
+export default function TransactionTable({ transactions, handleRemoveTransaction }) {
   const currYearStr = new Date().getFullYear().toString();
   const currMonthStr = (new Date().getMonth() + 1).toString().padStart(2, "0");
   const currMonthAndYear = `${currYearStr}-${currMonthStr}`;
@@ -50,11 +47,7 @@ export default function TransactionTable({
         <label>Category:</label>
 
         <div className="filter-btns-container">
-          <FilterBtn
-            filterType={"all"}
-            currFilterType={filterType}
-            handleChange={handleChange}
-          />
+          <FilterBtn filterType={"all"} currFilterType={filterType} handleChange={handleChange} />
           <FilterBtn
             filterType={"income"}
             currFilterType={filterType}
