@@ -280,7 +280,7 @@ input::-webkit-calendar-picker-indicator {
         }
 
         span {
-          font-size: 26px;
+          font-size: 40px;
         }
       }
 
@@ -323,8 +323,11 @@ input::-webkit-calendar-picker-indicator {
           font-size: 20px;
         }
 
-        h5 {
-          font-size: 20px;
+        .monthly-sum-wrapper {
+          h5 {
+            font-size: 18px;
+            padding: px;
+          }
         }
       }
     }
