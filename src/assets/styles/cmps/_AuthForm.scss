@@ -1,0 +1,51 @@
+.auth-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-height: calc(100vh - 10px);
+  text-align: start;
+  background-color: $background1;
+
+  .auth-form-card {
+    width: 100%;
+    max-width: 400px;
+    border: 2px solid black;
+
+    .card-body {
+      background-color: $background2;
+      border-radius: 4px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .form-label {
+      margin-bottom: 0.2rem;
+    }
+
+    input {
+      text-align: start;
+    }
+
+    button {
+      background-color: $btns;
+      color: black;
+      font-size: 18px;
+      font-weight: bold;
+
+      &:hover {
+        background-color: $btns-hover;
+      }
+    }
+
+    a {
+      color: white;
+    }
+
+    .login-footer {
+      text-align: center;
+    }
+  }
+}

@@ -5,7 +5,9 @@
   min-height: 100vh;
 
   .top {
-    text-align: start;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
 
     .statistics-btn {
       svg {

@@ -7,15 +7,20 @@ export function getTransactions() {
   return transactions || [];
 }
 
+export function saveTransactions(transactions) {
+  saveToLocalStorage(TRANSACTIONS_KEY, transactions);
+  return transactions
+}
+
 export function addTransaction(transactions, newTransaction) {
   const updatedTransactions = [...transactions, newTransaction];
-  saveToLocalStorage(TRANSACTIONS_KEY, updatedTransactions);
+  saveTransactions(updatedTransactions)
   return updatedTransactions;
 }
 
 export function removeTransaction(transactions, id) {
   const updatedTransactions = transactions.filter((transaction) => transaction.id !== id);
-  saveToLocalStorage(TRANSACTIONS_KEY, updatedTransactions);
+  saveTransactions(updatedTransactions)
   return updatedTransactions;
 }
 
@@ -33,7 +38,18 @@ export function updateTransaction(transactions, updatedTransaction) {
     ...transactions.slice(index + 1),
   ];
 
-  saveToLocalStorage(TRANSACTIONS_KEY, updatedTransactions);
-
+  saveTransactions(updatedTransactions)
   return updatedTransactions;
+}
+
+export function filterTransactionsByMonth(transactions, selectedMonth) {
+  if (!selectedMonth) {
+    return transactions; // If no month is selected, return all transactions
+  } else {
+    return transactions.filter((transaction) => {
+      const transactionDate = new Date(transaction.date);
+      const transactionMonth = transactionDate.getMonth() + 1; // Month is 0-based
+      return transactionMonth === parseInt(selectedMonth.substring(5, 7));
+    });
+  }
 }

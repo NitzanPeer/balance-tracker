@@ -1,6 +1,7 @@
 import React from "react";
 import StatisticsHeader from "../components/statistics/StatisticsHeader";
 import Footer from "../components/Footer";
+import AuthDetails from "../components/AuthDetails";
 import DatePickers from "../components/statistics/DatePickers";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -145,7 +146,8 @@ export default function Statistics() {
   return (
     <div className="statistics">
       <div className="top container">
-        <Link className="back-btn" to="/" title="Back to Home page">
+        <AuthDetails />
+        <Link className="back-btn" to="/home" title="Back to Home page">
           <FontAwesomeIcon className="font-awesome-icon" icon={faCircleLeft} />
         </Link>
       </div>

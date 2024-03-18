@@ -1,6 +1,4 @@
 import DatePickerInput from "../DatePickerInput";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 export default function DatePickers({
   selectedYear1,
@@ -21,7 +19,6 @@ export default function DatePickers({
           handleMonthChange={handleMonthChange}
         />
 
-        {/* <FontAwesomeIcon className="font-awesome-icon" icon={faChevronDown} /> */}
         <div className="monthly-sum-wrapper">
         <h5>{`Total Expenses: ₪${monthlySum1}`}</h5>
         </div>
@@ -34,7 +31,6 @@ export default function DatePickers({
           selectedMonth={selectedMonth2}
           handleMonthChange={handleMonthChange}
         />
-        {/* <FontAwesomeIcon className="font-awesome-icon" icon={faChevronDown} /> */}
         <div className="monthly-sum-wrapper">
           <h5>{`Total Expenses: ₪${monthlySum2}`}</h5>
         </div>

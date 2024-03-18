@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChartSimple } from "@fortawesome/free-solid-svg-icons";
-import "../assets/styles/main.scss";
 
 // import Header from "../components/Header";
 import Balance from "../components/home/Balance";
@@ -11,11 +10,15 @@ import TransactionTable from "../components/home/TransactionTable";
 import ButtonRow from "../components/home/ButtonRow";
 import AddTransactionModal from "../components/home/AddTransactionModal";
 import Footer from "../components/Footer";
-
-import { getTransactions, addTransaction, removeTransaction } from "../services/transactionService";
+import AuthDetails from "../components/AuthDetails";
+import { compareDates, getCurrentMonth } from "../services/utilService";
+import { getTransactions, saveTransactions, addTransaction, removeTransaction, filterTransactionsByMonth } from "../services/transactionService";
 
 export default function Home() {
+
   const [transactions, setTransactions] = useState([]);
+  const [selectedMonth, setSelectedMonth] = useState(getCurrentMonth());
+  const [transactionsByMonth, setTransactionsByMonth] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
@@ -27,9 +30,19 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    if (transactions.length > 0) {    //  this condition makes sure an empty array won't be saved in the local storage on every refresh
+      saveTransactions(transactions);
+    }
+  }, [transactions]);
+
+  useEffect(() => {
+    setTransactionsByMonth(filterTransactionsByMonth(transactions, selectedMonth).sort(compareDates));
+  }, [selectedMonth, transactions]);
+
+  useEffect(() => {
     let income = 0;
     let expense = 0;
-    transactions.forEach((transaction) => {
+    transactionsByMonth.forEach((transaction) => {
       if (transaction.isIncome) {
         income += parseFloat(transaction.sum);
       } else {
@@ -39,7 +52,7 @@ export default function Home() {
     setTotalIncome(income);
     setTotalExpense(expense);
     setBalance(income - expense);
-  }, [transactions]);
+  }, [transactionsByMonth]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -64,9 +77,11 @@ export default function Home() {
     }
   };
 
+
   return (
     <div className="home">
       <div className="top container">
+        <AuthDetails/>
         <Link className="statistics-btn" to="/statistics" title="Statistics">
           <FontAwesomeIcon className="font-awesome-icon" icon={faChartSimple} />
         </Link>
@@ -76,8 +91,10 @@ export default function Home() {
       <IncomeExpense totalIncome={totalIncome} totalExpense={totalExpense} />
       <ButtonRow openModal={openModal} />
       <TransactionTable
-        transactions={transactions}
+        transactionsByMonth={transactionsByMonth}
         handleRemoveTransaction={handleRemoveTransaction}
+        selectedMonth={selectedMonth}
+        setSelectedMonth={setSelectedMonth}
       />
       {isModalOpen && (
         <AddTransactionModal
@@ -91,3 +108,4 @@ export default function Home() {
     </div>
   );
 }
+

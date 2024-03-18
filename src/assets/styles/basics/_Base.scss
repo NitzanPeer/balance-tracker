@@ -11,10 +11,11 @@
 }
 
 html {
-  background-color: $background1;
+  // background-color: $background1;
 }
 
 body {
+  background-color: $background1;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -29,6 +30,8 @@ body {
 
 .container {
   margin: 4px;
+  width: auto;
+  max-width: 600px;
 }
 
 h1 {
@@ -239,8 +242,6 @@ input::-webkit-calendar-picker-indicator {
   background: transparent;
 }
 
-
-
 .income-color {
   color: #2ecc71;
 }
@@ -255,6 +256,31 @@ input::-webkit-calendar-picker-indicator {
 
 .expense-background {
   background-color: #e74c3c;
+}
+
+.hi-user-msg-container {
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  padding: 2px;
+
+  p {
+    margin-block-start: 0.5rem;
+    margin-block-end: 0.5rem;
+    margin-inline-end: 20px;
+    // margin-inline-start: 10px;
+  }
+
+  button {
+    font-size: 12px;
+    padding: 6px;
+    border: 0;
+    border-radius: 6px;
+  }
+}
+
+.footer-container {
+  margin: auto 0 0.2rem 0;
 }
 
 // responsiveness:
@@ -326,9 +352,16 @@ input::-webkit-calendar-picker-indicator {
         .monthly-sum-wrapper {
           h5 {
             font-size: 18px;
-            padding: px;
+            padding: 1px;
           }
         }
+      }
+    }
+
+    .hi-user-msg-container {
+
+      button {
+        font-size: 16px;
       }
     }
   }

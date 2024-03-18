@@ -19,16 +19,20 @@
   .month-container {
     display: grid;
     grid-template-columns: 1fr 2fr;
+    padding: 0;
   }
 
   .month-inner {
     display: flex;
     justify-content: center;
+    margin: 0;
+    padding: 0;
   }
 
   .month-filter {
     display: flex;
     justify-content: center;
+    width: 80%;
 
     input {
       text-align: center;
@@ -42,6 +46,8 @@
       border: 2px solid black;
       border-radius: 4px;
       padding: 0;
+      min-width: 180px;
+      width: 100%;
     }
   }
 

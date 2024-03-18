@@ -45,3 +45,9 @@ export function getLastMonthProperties() {
 
   return { lastMonthsYear, lastMonth };
 }
+
+export function getCurrentMonth() {
+  const currYearStr = new Date().getFullYear().toString();
+  const currMonthStr = (new Date().getMonth() + 1).toString().padStart(2, "0");
+  return `${currYearStr}-${currMonthStr}`;
+}
