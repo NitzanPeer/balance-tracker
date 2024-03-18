@@ -66,7 +66,7 @@ export default function AuthForm({ signUpOrSignIn }) {
               <Button type="submit">{signUpOrSignIn}</Button>
               {signUpOrSignIn === "Sign Up" && (
                 <p>
-                  Already have an account? <a href="/signin">Sign In Here</a>
+                  Already have an account? <a href="/">Sign In Here</a>
                 </p>
               )}
               {signUpOrSignIn === "Sign In" && (
