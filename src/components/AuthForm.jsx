@@ -64,12 +64,12 @@ export default function AuthForm({ signUpOrSignIn }) {
             <Button type="submit">{signUpOrSignIn}</Button>
             {signUpOrSignIn === "Sign Up" && (
               <p>
-                Already have an account? <a href="/">Sign in</a>
+                Already have an account? <a href="/">Sign In</a>
               </p>
             )}
             {signUpOrSignIn === "Sign In" && (
               <p>
-                Don't have an account? <a href="/signup">Sign up</a>
+                Don't have an account? <a href="/signup">Sign Up</a>
               </p>
             )}
             <p>
