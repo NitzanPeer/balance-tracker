@@ -1,32 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { auth } from "../firebase";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { saveTransactions, getTransactions } from "../services/transactionService";
+import guestdata from "../../guestdata.json";
 
-export default function AuthDetails() {
-  const [authUser, setAuthUser] = useState(null);
+import { useAuth } from "../hooks/AuthHook";
+
+export default function AuthDetails({ setTransactions }) {
+  const { user, isGuestUser, logout } = useAuth();
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const listen = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setAuthUser(user);
-      } else {
-        setAuthUser(null);
-      }
-    });
-
-    return () => {
-      listen();
-    };
-  }, []);
 
   const handleSignOut = async (e) => {
     e.preventDefault();
     try {
-      await signOut(auth); // signing out with firebase
-      setAuthUser(null); // reseting the user to null so another can log in
+      await logout(); // signing out with firebase
       navigate("/");
       console.log("User Signed Out");
     } catch (error) {
@@ -35,12 +22,32 @@ export default function AuthDetails() {
     }
   };
 
+  const handleResetData = async (e) => {
+    e.preventDefault();
+    const conf = confirm("Are you sure you want to reset guest transactions?")
+    if(conf) {
+      try {
+        // navigate("/home");
+
+        saveTransactions(user.uid, guestdata);
+        setTransactions(guestdata);
+
+        console.log("User Signed Out");
+      } catch (error) {
+        console.error("Error code:", error.code);
+        console.error("Error message:", error.message);
+      }
+    }
+
+  };
+
   return (
     <div className="hi-user-msg-container">
-      {authUser ? (
+      {user ? (
         <>
-          <p>{`Hi ${authUser.email}!`}</p>
-          <button onClick={handleSignOut}>Sign Out</button>
+          <p>{`Hi ${user.email}!`}</p>
+          <button className="signout-btn" onClick={handleSignOut}>Sign Out</button>
+          {isGuestUser && <button className="reset-btn" onClick={handleResetData}>Reset Data</button>}
         </>
       ) : (
         <p>Signed Out</p>

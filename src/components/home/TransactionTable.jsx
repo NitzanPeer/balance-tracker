@@ -25,24 +25,7 @@ export default function TransactionTable({ transactionsByMonth, handleRemoveTran
 
   return (
     <div className="transaction-table container">
-      <div className="month-container container">
-        <label>Month:</label>
-        <div className="month-inner container">
-          <div className="month-filter container">
-            <input
-              type="month"
-              id="monthInput"
-              name="start"
-              min="2024-01"
-              value={selectedMonth}
-              onChange={(e) => handleChange("month", e)}
-            />
-          </div>
-        </div>
-      </div>
-
       <div className="category-container container">
-        <label>Category:</label>
         <div className="filter-btns-container">
           <FilterBtn filterType={"all"} currFilterType={filterType} handleChange={handleChange} />
           <FilterBtn

@@ -11,20 +11,10 @@
     }
   }
 
-  .top {
-    display: flex;
-    justify-content: space-between;
-    padding: 0;
-  }
-
   .header-container,
   .date-pickers,
   .bar-chart-container {
     background-color: #e9f1fa;
-  }
-
-  .back-btn {
-    align-self: flex-start;
   }
 
   .header-container,
@@ -87,12 +77,12 @@
       flex: 1;
       display: flex;
       justify-content: center;
-      max-width: 220px;
+      max-width: 195px;
       padding: 0;
 
       input, svg {
-        background-color: $chart1-light;
         border-radius: 0;
+        cursor: pointer;
       }
 
       input {
@@ -106,6 +96,14 @@
       input, svg {
         background-color: $chart1-light;
       }
+
+      &:hover {
+        background-color: $chart1-dark;
+      }
+
+      &:hover, &:hover svg,  &:hover input  {
+        background-color: $chart1-dark;
+      }
     }
 
     .date-picker2 {
@@ -114,16 +112,19 @@
       input, svg {
         background-color: $chart2-light;
       }
+
+      &:hover {
+        background-color: $chart2-dark;
+      }
+
+      &:hover, &:hover svg,  &:hover input  {
+        background-color: $chart2-dark;
+      }
     }
 
     label {
       font-size: 18px;
       font-weight: bold;
-    }
-
-    .year-input {
-      max-width: 60px;
-      margin-inline-end: 20px;
     }
   }
 

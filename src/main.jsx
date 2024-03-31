@@ -5,6 +5,7 @@ import Home from "./views/Home.jsx";
 import Statistics from "./views/Statistics.jsx";
 import NotFoundPage from "./views/NotFoundPage.jsx";
 import AuthForm from "./components/AuthForm.jsx"
+import { AuthContextProvider } from "./contexts/AuthContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App.jsx";
 import "./assets/styles/main.scss";
@@ -36,6 +37,8 @@ import "./assets/styles/main.scss";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
       {/* <RouterProvider router={router} /> */}
-      <App />
+      <AuthContextProvider>
+        <App />
+      </AuthContextProvider>
   </React.StrictMode>
 );

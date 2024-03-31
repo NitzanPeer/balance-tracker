@@ -1,0 +1,17 @@
+.auth-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+
+  svg {
+    width: 30px;
+    border-radius: 10px;
+  }
+
+  .statistics-btn {
+  }
+
+  .back-btn {
+    // align-self: flex-start;
+  }
+}

@@ -1,0 +1,6 @@
+TODO:
+
+1. Change background colors to a more beautiful pallet.
+2. migrate db date format to date object (UI still showing the date as a simple string)
+example:
+"date": { "seconds": 1711626859, "nanoseconds": 196000000 } -  (firebase's way of handling dates)

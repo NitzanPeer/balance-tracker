@@ -41,7 +41,7 @@ export function getLastMonthProperties() {
   const currentDate = new Date();
   currentDate.setMonth(currentDate.getMonth() - 1);
   const lastMonthsYear = currentDate.getFullYear();
-  const lastMonth = currentDate.getMonth() + 1;
+  const lastMonth = currentDate.getMonth();
 
   return { lastMonthsYear, lastMonth };
 }

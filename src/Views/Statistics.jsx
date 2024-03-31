@@ -1,14 +1,10 @@
 import React from "react";
 import StatisticsHeader from "../components/statistics/StatisticsHeader";
 import Footer from "../components/Footer";
-import AuthDetails from "../components/AuthDetails";
+import AuthHeader from "../components/AuthHeader";
 import DatePickers from "../components/statistics/DatePickers";
-import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getTransactions } from "../services/transactionService";
 import { getLastMonthProperties } from "../services/utilService";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import {
   Chart as ChartJS,
   BarElement,
@@ -25,8 +21,7 @@ import { Bar } from "react-chartjs-2";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement);
 
-export default function Statistics() {
-  const transactions = getTransactions();
+export default function Statistics({transactions, isLoading}) {
 
   const currYear = new Date().getFullYear();
   const currMonth = new Date().getMonth() + 1;
@@ -42,6 +37,7 @@ export default function Statistics() {
   const [weeklySums2, setWeeklySums2] = useState([]);
 
   useEffect(() => {
+    // console.log('statistics transactions', transactions)
     const currentMonthData = getExpenseSums(currYear, currMonth, transactions);
     setMonthlySum1(currentMonthData.monthlyExpensesSum);
     setWeeklySums1(currentMonthData.weeklyExpensesSums);
@@ -49,7 +45,7 @@ export default function Statistics() {
     const previousMonthData = getExpenseSums(lastMonthsYear, lastMonth, transactions);
     setMonthlySum2(previousMonthData.monthlyExpensesSum);
     setWeeklySums2(previousMonthData.weeklyExpensesSums);
-  }, []);
+  }, [transactions]);
 
   const getExpenseSums = (year, month, transactions, includeIncome = false) => {
     let weeklyExpensesSums = [0, 0, 0, 0];
@@ -145,31 +141,30 @@ export default function Statistics() {
 
   return (
     <div className="statistics">
-      <div className="top container">
-        <AuthDetails />
-        <Link className="back-btn" to="/home" title="Back to Home page">
-          <FontAwesomeIcon className="font-awesome-icon" icon={faCircleLeft} />
-        </Link>
-      </div>
-      <StatisticsHeader />
-      <DatePickers
-        selectedYear1={selectedYear1}
-        selectedMonth1={selectedMonth1}
-        selectedYear2={selectedYear2}
-        selectedMonth2={selectedMonth2}
-        monthlySum1={monthlySum1}
-        monthlySum2={monthlySum2}
-        handleMonthChange={handleMonthChange}
-      />
-      <div className="bar-chart-container container">
-        <Bar
-          className="bar-chart"
-          data={createChartData()}
-          plugins={[ChartDataLabels]}
-          options={createChartOptions()}
-          height={220}
-        />
-      </div>
+      {isLoading ? <div>Loading...</div> :
+        <>
+        <AuthHeader isHome={false}/>
+          <StatisticsHeader />
+          <DatePickers
+            selectedYear1={selectedYear1}
+            selectedMonth1={selectedMonth1}
+            selectedYear2={selectedYear2}
+            selectedMonth2={selectedMonth2}
+            monthlySum1={monthlySum1}
+            monthlySum2={monthlySum2}
+            handleMonthChange={handleMonthChange}
+          />
+          <div className="bar-chart-container container">
+            <Bar
+              className="bar-chart"
+              data={createChartData()}
+              plugins={[ChartDataLabels]}
+              options={createChartOptions()}
+              height={220}
+            />
+          </div>
+        </>
+      }
       {/* <div className="doughnut-chart-container">
         <Doughnut className="doughnut-chart" data={chartData} options={options}/>
       </div> */}

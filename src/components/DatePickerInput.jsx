@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 
-export default function DatePicker({ inputNum, selectedYear, selectedMonth, handleMonthChange }) {
+export default function DatePicker({ selectedYear, selectedMonth, handleMonthChange, inputNum }) {
   return (
     <div className={`date-picker${inputNum} container`}>
       <input
-        className={`date-picker-input${inputNum}`}
+        className={`date-picker-input${inputNum} noselect`}
         type="month"
         id="monthInput"
         name="start"

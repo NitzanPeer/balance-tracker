@@ -15,40 +15,11 @@
     border-bottom: 3px solid;
   }
 
-  .category-container,
-  .month-container {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    padding: 0;
-  }
-
   .month-inner {
     display: flex;
     justify-content: center;
     margin: 0;
     padding: 0;
-  }
-
-  .month-filter {
-    display: flex;
-    justify-content: center;
-    width: 80%;
-
-    input {
-      text-align: center;
-      background-color: #e9f1fa;
-
-      font-family: "Lato", sans-serif;
-      font-size: 18px;
-      text-align: center;
-      font-weight: bold;
-      background-color: #e9f1fa;
-      border: 2px solid black;
-      border-radius: 4px;
-      padding: 0;
-      min-width: 180px;
-      width: 100%;
-    }
   }
 
   .filter-btns-container {

@@ -67,10 +67,10 @@ export default function AddTransaction({ closeModal, handleAddTransaction }) {
             value={date}
             onChange={(e) => setDate(e.target.value)}
           />
-          {error && <div className="error">{error}</div>}
           <button className="submit-btn" onClick={handleSubmit}>
             Submit
           </button>
+          {error && <div className="error">{error}</div>}
         </div>
       </div>
     </div>

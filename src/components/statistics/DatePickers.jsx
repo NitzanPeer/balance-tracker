@@ -13,10 +13,10 @@ export default function DatePickers({
     <div className="date-pickers container">
       <div className="date-picker-wrapper">
         <DatePickerInput
-          inputNum={1}
           selectedYear={selectedYear1}
           selectedMonth={selectedMonth1}
           handleMonthChange={handleMonthChange}
+          inputNum={1}
         />
 
         <div className="monthly-sum-wrapper">
@@ -26,10 +26,10 @@ export default function DatePickers({
 
       <div className="date-picker-wrapper">
         <DatePickerInput
-          inputNum={2}
           selectedYear={selectedYear2}
           selectedMonth={selectedMonth2}
           handleMonthChange={handleMonthChange}
+          inputNum={2}
         />
         <div className="monthly-sum-wrapper">
           <h5>{`Total Expenses: ₪${monthlySum2}`}</h5>

@@ -1,48 +1,73 @@
-import { saveToLocalStorage, loadFromLocalStorage } from "./utilService";
+import { db } from "../firebase";
+import { collection, doc, getDoc, updateDoc, setDoc, addDoc, deleteDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 
-const TRANSACTIONS_KEY = "transactions";
+export async function getTransactions(userId) {
+  try {
+    const userDocRef = doc(db, "users", userId);
+    const docSnap = await getDoc(userDocRef);
 
-export function getTransactions() {
-  const transactions = loadFromLocalStorage(TRANSACTIONS_KEY);
-  return transactions || [];
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+      return docSnap.data().transactions || [];
+    } else {
+      console.log("No such document!");
+      return []; // Return an empty array if document doesn't exist
+    }
+  } catch (error) {
+    console.error("Error fetching transactions:", error);
+    throw error; // Re-throw the error to handle it where getTransactions is called
+  }
 }
 
-export function saveTransactions(transactions) {
-  saveToLocalStorage(TRANSACTIONS_KEY, transactions);
-  return transactions
+export async function saveTransactions(userId, transactions) {
+  try {
+    const userDocRef = doc(db, "users", userId);
+    await updateDoc(userDocRef, {
+      transactions: transactions
+    });
+    console.log("Transactions saved successfully");
+  } catch (error) {
+    console.error("Error saving transactions:", error);
+    throw error; // Re-throw the error to handle it where saveTransactions is called
+  }
 }
 
-export function addTransaction(transactions, newTransaction) {
+export async function addTransaction(userId, transactions, newTransaction) {
+
   const updatedTransactions = [...transactions, newTransaction];
-  saveTransactions(updatedTransactions)
-  return updatedTransactions;
-}
 
-export function removeTransaction(transactions, id) {
-  const updatedTransactions = transactions.filter((transaction) => transaction.id !== id);
-  saveTransactions(updatedTransactions)
-  return updatedTransactions;
-}
-
-export function updateTransaction(transactions, updatedTransaction) {
-  const index = transactions.findIndex((transaction) => transaction.id === updatedTransaction.id);
-
-  if (index === -1) {
-    // If no transaction found, return the original transactions array
-    return transactions;
+  try {
+    await saveTransactions(userId, updatedTransactions)
+    console.log("Transactions added successfully");
+  } catch (error) {
+    console.error("Error saving transactions:", error);
+    // throw error; // Re-throw the error to handle it where addTransaction is called
   }
 
-  const updatedTransactions = [
-    ...transactions.slice(0, index),
-    updatedTransaction,
-    ...transactions.slice(index + 1),
-  ];
-
-  saveTransactions(updatedTransactions)
   return updatedTransactions;
+}
+
+// two ways to remove a transaction in firestore:
+// 1. Pass in the ENTIRE object and use arrayRemove()
+// 2. Read the document(?), manually remove the element from array and update the document back
+export async function removeTransaction(userId, transaction) {
+  try {
+    const userDocRef = doc(db, "users", userId);
+
+    await updateDoc(userDocRef, {
+      transactions: arrayRemove(transaction),
+    });
+
+    console.log("Transaction removed successfully");
+  } catch (error) {
+    console.error("Error removing transaction:", error);
+  }
 }
 
 export function filterTransactionsByMonth(transactions, selectedMonth) {
+  if (!transactions.length) {
+    return [];
+  }
   if (!selectedMonth) {
     return transactions; // If no month is selected, return all transactions
   } else {

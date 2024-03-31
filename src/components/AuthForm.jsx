@@ -1,16 +1,14 @@
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { auth } from "../firebase";
 import { Form, Button, Card, CardBody, FormLabel } from "react-bootstrap";
-// import { UserAuth } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import { UserAuth } from "../contexts/AuthContext";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { db } from "../firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 export default function AuthForm({ signUpOrSignIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  // const { createUser } = UserAuth()
 
   const navigate = useNavigate();
 
@@ -19,8 +17,16 @@ export default function AuthForm({ signUpOrSignIn }) {
 
     try {
       if (signUpOrSignIn === "Sign Up") {
-        await createUserWithEmailAndPassword(auth, email, password);
-        // await createUser(email, password);
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const userId = userCredential.user.uid;
+
+        const dataToSave = {
+          email: email,
+          transactions: [],
+        };
+
+        await setDoc(doc(db, "users", userId), dataToSave);
+
         navigate("/home");
         console.log(`${email} successfully signed up`);
       } else {
@@ -34,9 +40,22 @@ export default function AuthForm({ signUpOrSignIn }) {
     }
   };
 
+  const handleGuestSignIn = async () => {
+    // Simulate signing in with mock guest data
+    const guestEmail = "guest@example.com";
+    const guestPassword = "guest1";
+
+    try {
+      await signInWithEmailAndPassword(auth, guestEmail, guestPassword);
+      navigate("/home");
+    } catch (error) {
+      console.error("Error code:", error.code);
+      console.error("Error message:", error.message);
+    }
+  };
+
   return (
     <div className={`auth-form-container container`}>
-      {/* <div className={`auth-form-wrapper`}> */}
       <Card className={`auth-form-card`}>
         <CardBody>
           <h2>{signUpOrSignIn}</h2>
@@ -63,22 +82,24 @@ export default function AuthForm({ signUpOrSignIn }) {
             </Form.Group>{" "}
             <Button type="submit">{signUpOrSignIn}</Button>
             {signUpOrSignIn === "Sign Up" && (
-              <p>
-                Already have an account? <a href="/">Sign In</a>
-              </p>
+              <div>
+                <span>Already have an account?</span>
+                <a href="/">Sign In</a>
+              </div>
             )}
             {signUpOrSignIn === "Sign In" && (
-              <p>
-                Don't have an account? <a href="/signup">Sign Up</a>
-              </p>
+              <div>
+                <span>Don't have an account?</span>
+                <a href="/signup">Sign Up</a>
+              </div>
             )}
-            <p>
-              Guest? <a href="/home">Click Here</a>
-            </p>
+            <span>Guest?</span>
+            <Link to="/home" onClick={handleGuestSignIn}>
+              Click Here
+            </Link>
           </Form>
         </CardBody>
       </Card>
-      {/* </div> */}
     </div>
   );
 }

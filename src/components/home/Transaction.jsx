@@ -23,7 +23,7 @@ export default function Transaction({ transaction, handleRemoveTransaction }) {
       <div className="transaction-date">{formattedDate}</div>
       <button
         className="remove-transaction-btn"
-        onClick={() => handleRemoveTransaction(transaction.id)}
+        onClick={() => handleRemoveTransaction(transaction)}
       >
         x
       </button>

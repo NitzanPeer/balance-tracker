@@ -4,21 +4,58 @@
   padding: 4px;
   min-height: 100vh;
 
-  .top {
-    display: flex;
-    justify-content: space-between;
-    padding: 0;
-
-    .statistics-btn {
-      svg {
-        width: 30px;
-      }
-    }
-  }
-
   .balance,
   .income-expense .income,
   .income-expense .expense {
     background-color: #e9f1fa;
+  }
+
+  .month-container {
+    .month-inner {
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+
+      .month-filter {
+        display: flex;
+        justify-content: center;
+        max-width: 220px;
+        padding: 0;
+        background-color: $btns;
+        border-radius: 10px;
+        margin: 0;
+
+        svg {
+          cursor: pointer;
+          margin-inline-end: 12px;
+        }
+
+        input {
+          text-align: center;
+          background-color: $btns;
+          font-family: "Lato", sans-serif;
+          font-size: 22px;
+          text-align: center;
+          font-weight: bold;
+          border-top-left-radius: 10px;
+          border-bottom-left-radius: 10px;
+          padding: 0;
+          border: none;
+          box-sizing: border-box;
+          outline: 0;
+          position: relative;
+        }
+
+        &:hover {
+          background-color: $btns-hover;
+        }
+
+
+        &:hover, &:hover svg,  &:hover input  {
+          background-color: $btns-hover;
+        }
+      }
+    }
   }
 }

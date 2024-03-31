@@ -1,41 +1,33 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChartSimple } from "@fortawesome/free-solid-svg-icons";
-
-// import Header from "../components/Header";
+import AuthHeader from "../components/AuthHeader";
 import Balance from "../components/home/Balance";
 import IncomeExpense from "../components/home/IncomeExpense";
 import TransactionTable from "../components/home/TransactionTable";
 import ButtonRow from "../components/home/ButtonRow";
 import AddTransactionModal from "../components/home/AddTransactionModal";
 import Footer from "../components/Footer";
-import AuthDetails from "../components/AuthDetails";
+import MonthPicker from "../components/home/MonthPicker"
 import { compareDates, getCurrentMonth } from "../services/utilService";
-import { getTransactions, saveTransactions, addTransaction, removeTransaction, filterTransactionsByMonth } from "../services/transactionService";
+import {
+  getTransactions,
+  addTransaction,
+  removeTransaction,
+  filterTransactionsByMonth,
+} from "../services/transactionService";
+import { useAuth } from "../hooks/AuthHook";
 
-export default function Home() {
-
-  const [transactions, setTransactions] = useState([]);
+export default function Home({ transactions, setTransactions, isLoading }) {
   const [selectedMonth, setSelectedMonth] = useState(getCurrentMonth());
-  const [transactionsByMonth, setTransactionsByMonth] = useState([])
+  const [transactionsByMonth, setTransactionsByMonth] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
   const [balance, setBalance] = useState(0);
 
-  useEffect(() => {
-    const savedTransactions = getTransactions();
-    setTransactions(savedTransactions);
-  }, []);
+  const { user } = useAuth();
 
   useEffect(() => {
-    if (transactions.length > 0) {    //  this condition makes sure an empty array won't be saved in the local storage on every refresh
-      saveTransactions(transactions);
-    }
-  }, [transactions]);
-
-  useEffect(() => {
+    // console.log('home transactions', transactions)
     setTransactionsByMonth(filterTransactionsByMonth(transactions, selectedMonth).sort(compareDates));
   }, [selectedMonth, transactions]);
 
@@ -62,50 +54,52 @@ export default function Home() {
     setIsModalOpen(false);
   };
 
-  const handleAddTransaction = (newTransaction) => {
-    const updatedTransactions = addTransaction(transactions, newTransaction);
-    setTransactions(updatedTransactions);
+  const handleAddTransaction = async (newTransaction) => {
+    // Add the transaction to the DB
+    await addTransaction(user.uid, transactions, newTransaction);
     closeModal();
+
+    // Fetch the now updated transactions from the DB and update the state
+    const updatedTransactionsFromDB = await getTransactions(user.uid);
+    setTransactions(updatedTransactionsFromDB);
   };
 
-  const handleRemoveTransaction = (id) => {
+  const handleRemoveTransaction = async (transactionToDelete) => {
     const conf = confirm("Delete this transaction?");
     if (conf) {
-      removeTransaction(transactions, id);
-      const updatedTransactions = transactions.filter((transaction) => transaction.id !== id);
+      removeTransaction(user.uid, transactionToDelete);
+      const updatedTransactions = transactions.filter((transaction) => transaction.id !== transactionToDelete.id);
       setTransactions(updatedTransactions);
     }
   };
 
-
   return (
     <div className="home">
-      <div className="top container">
-        <AuthDetails/>
-        <Link className="statistics-btn" to="/statistics" title="Statistics">
-          <FontAwesomeIcon className="font-awesome-icon" icon={faChartSimple} />
-        </Link>
-      </div>
-      {/* <Header /> */}
-      <Balance balance={balance} />
-      <IncomeExpense totalIncome={totalIncome} totalExpense={totalExpense} />
-      <ButtonRow openModal={openModal} />
-      <TransactionTable
-        transactionsByMonth={transactionsByMonth}
-        handleRemoveTransaction={handleRemoveTransaction}
-        selectedMonth={selectedMonth}
-        setSelectedMonth={setSelectedMonth}
-      />
-      {isModalOpen && (
-        <AddTransactionModal
-          transactions={transactions}
-          setTransactions={setTransactions}
-          closeModal={closeModal}
-          handleAddTransaction={handleAddTransaction}
-        />
-      )}
-      <Footer />
+      {isLoading ? <div>Loading...</div> :
+        <>
+          <AuthHeader setTransactions={setTransactions} isHome={true} />
+          <MonthPicker selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth}/>
+          <Balance balance={balance} />
+          <IncomeExpense totalIncome={totalIncome} totalExpense={totalExpense} />
+          <ButtonRow openModal={openModal} />
+          <TransactionTable
+            transactionsByMonth={transactionsByMonth}
+            handleRemoveTransaction={handleRemoveTransaction}
+            selectedMonth={selectedMonth}
+            setSelectedMonth={setSelectedMonth}
+          />
+          {isModalOpen && (
+            <AddTransactionModal
+              transactions={transactions}
+              setTransactions={setTransactions}
+              closeModal={closeModal}
+              handleAddTransaction={handleAddTransaction}
+            />
+          )}
+          <Footer />
+        </>
+      }
+
     </div>
   );
 }
-
