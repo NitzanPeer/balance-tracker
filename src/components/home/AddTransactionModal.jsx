@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { generateId } from "../../services/utilService";
+import { Timestamp } from "firebase/firestore";
 
 export default function AddTransaction({ closeModal, handleAddTransaction }) {
   const today = new Date().toISOString().substring(0, 10); // get a string of today's date to be used as default
@@ -18,11 +19,14 @@ export default function AddTransaction({ closeModal, handleAddTransaction }) {
       return;
     }
 
+    // Convert the date string to a Firestore Timestamp object
+    const formattedDate = Timestamp.fromDate(new Date(date));
+
     const newTransaction = {
       id: generateId(),
       isIncome: category === "Income",
       title,
-      date,
+      date: formattedDate,
       category,
       sum,
     };

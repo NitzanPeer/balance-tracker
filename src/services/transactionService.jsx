@@ -64,6 +64,8 @@ export async function removeTransaction(userId, transaction) {
   }
 }
 
+// This function is made to handle an old date type (string) which I used initially
+// and a new one (timestamp used by firebase's firestore)
 export function filterTransactionsByMonth(transactions, selectedMonth) {
   if (!transactions.length) {
     return [];
@@ -72,7 +74,17 @@ export function filterTransactionsByMonth(transactions, selectedMonth) {
     return transactions; // If no month is selected, return all transactions
   } else {
     return transactions.filter((transaction) => {
-      const transactionDate = new Date(transaction.date);
+      let transactionDate;
+      if (typeof transaction.date === 'string') {
+        // Parse date string
+        transactionDate = new Date(transaction.date);
+      } else if (transaction.date instanceof Date) {
+        // Date object
+        transactionDate = transaction.date;
+      } else {
+        // Assume it's a Firestore Timestamp
+        transactionDate = transaction.date.toDate(); // Convert Firestore Timestamp to Date
+      }
       const transactionMonth = transactionDate.getMonth() + 1; // Month is 0-based
       return transactionMonth === parseInt(selectedMonth.substring(5, 7));
     });

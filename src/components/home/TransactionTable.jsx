@@ -3,13 +3,12 @@ import { useState, useEffect } from "react";
 import Transaction from "./Transaction";
 import FilterBtn from "../FilterBtn";
 
-export default function TransactionTable({ transactionsByMonth, handleRemoveTransaction, selectedMonth, setSelectedMonth }) {
+export default function TransactionTable({ transactionsByMonth, handleRemoveTransaction }) {
 
   const [filterType, setFilterType] = useState("all");
 
-  const handleChange = (changeType, e = null, filterType = null) => {
-    if (changeType === "month") setSelectedMonth(e.target.value);
-    else if (changeType === "filter") setFilterType(filterType);
+  const handleChange = (filterType = null) => {
+   setFilterType(filterType);
   };
 
   const transactionsByMonthAndFilter = transactionsByMonth
@@ -27,7 +26,10 @@ export default function TransactionTable({ transactionsByMonth, handleRemoveTran
     <div className="transaction-table container">
       <div className="category-container container">
         <div className="filter-btns-container">
-          <FilterBtn filterType={"all"} currFilterType={filterType} handleChange={handleChange} />
+          <FilterBtn
+            filterType={"all"}
+            currFilterType={filterType}
+            handleChange={handleChange} />
           <FilterBtn
             filterType={"income"}
             currFilterType={filterType}

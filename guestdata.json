@@ -1,7 +1,7 @@
 [
   {
     "title": "חודשי",
-    "date": "2024-03-01",
+    "date": "2024-04-01",
     "id": "IzEztf",
     "category": "Income",
     "sum": "1300",
@@ -11,20 +11,20 @@
     "sum": "70",
     "title": "תספורת",
     "id": "41ab7m",
-    "date": "2024-03-11",
+    "date": "2024-04-11",
     "category": "Expense",
     "isIncome": false
   },
   {
     "id": "3ukDP6",
-    "date": "2024-03-06",
+    "date": "2024-04-06",
     "category": "Expense",
     "title": "מתנה ליעל",
     "sum": "140",
     "isIncome": false
   },
   {
-    "date": "2024-03-19",
+    "date": "2024-04-19",
     "title": "קפה",
     "category": "Expense",
     "id": "8UHbko",
@@ -40,7 +40,7 @@
     "isIncome": true
   },
   {
-    "date": "2024-03-25",
+    "date": "2024-04-25",
     "id": "4lBhyy",
     "sum": "12",
     "category": "Expense",
@@ -48,7 +48,7 @@
     "isIncome": false
   },
   {
-    "date": "2024-02-04",
+    "date": "2024-03-04",
     "id": "08PHK0",
     "sum": "20",
     "title": "פלאפל",
@@ -57,7 +57,7 @@
   },
   {
     "sum": "10",
-    "date": "2024-02-05",
+    "date": "2024-03-05",
     "id": "I70JNI",
     "category": "Expense",
     "title": "קפה",
@@ -68,20 +68,20 @@
     "sum": "50",
     "category": "Expense",
     "title": "פרחים",
-    "date": "2024-02-03",
+    "date": "2024-03-03",
     "isIncome": false
   },
   {
     "sum": "180",
     "id": "KEcPBo",
-    "date": "2024-02-13",
+    "date": "2024-03-13",
     "title": "אוזניות",
     "category": "Expense",
     "isIncome": false
   },
   {
     "sum": "30",
-    "date": "2024-02-29",
+    "date": "2024-03-29",
     "title": "שייק",
     "category": "Expense",
     "id": "dTjOHc",
@@ -92,11 +92,11 @@
     "sum": "40",
     "id": "PH5aL7",
     "title": "חולצה",
-    "date": "2024-02-19",
+    "date": "2024-03-19",
     "isIncome": false
   },
   {
-    "date": "2024-02-20",
+    "date": "2024-03-20",
     "sum": "80",
     "id": "sXqKAh",
     "title": "רב קו",
@@ -104,7 +104,7 @@
     "isIncome": false
   },
   {
-    "date": "2024-03-28",
+    "date": "2024-04-28",
     "sum": "80",
     "category": "Expense",
     "title": "מסעדה",

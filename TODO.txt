@@ -1,6 +1,12 @@
 TODO:
 
-1. Change background colors to a more beautiful pallet.
-2. migrate db date format to date object (UI still showing the date as a simple string)
-example:
-"date": { "seconds": 1711626859, "nanoseconds": 196000000 } -  (firebase's way of handling dates)
+1. Check if both isIncome and category properties are needed as transacion properties or is one enough
+2. Finalize design - (mainly change background colors to a more beautiful pallet).
+
+
+FIXME:
+
+1. Make demo data in guest user (json) always appear as this month + last month's data instead of specific months.
+(so it's always presented as this month's and last month's data, not just a specific one)
+2. Make demo data json use firestore timestamp.
+3. Fix Home's month picker's width. Make it change size according to it's content.

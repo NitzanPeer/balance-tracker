@@ -9,6 +9,7 @@ export default function DatePickers({
   monthlySum2,
   handleMonthChange,
 }) {
+
   return (
     <div className="date-pickers container">
       <div className="date-picker-wrapper">

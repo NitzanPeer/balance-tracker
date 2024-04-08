@@ -47,7 +47,7 @@ export default function AuthDetails({ setTransactions }) {
         <>
           <p>{`Hi ${user.email}!`}</p>
           <button className="signout-btn" onClick={handleSignOut}>Sign Out</button>
-          {isGuestUser && <button className="reset-btn" onClick={handleResetData}>Reset Data</button>}
+          {isGuestUser && <button className="reset-btn" onClick={handleResetData}>Reset Demo Data</button>}
         </>
       ) : (
         <p>Signed Out</p>

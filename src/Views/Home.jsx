@@ -27,7 +27,6 @@ export default function Home({ transactions, setTransactions, isLoading }) {
   const { user } = useAuth();
 
   useEffect(() => {
-    // console.log('home transactions', transactions)
     setTransactionsByMonth(filterTransactionsByMonth(transactions, selectedMonth).sort(compareDates));
   }, [selectedMonth, transactions]);
 
@@ -86,7 +85,6 @@ export default function Home({ transactions, setTransactions, isLoading }) {
             transactionsByMonth={transactionsByMonth}
             handleRemoveTransaction={handleRemoveTransaction}
             selectedMonth={selectedMonth}
-            setSelectedMonth={setSelectedMonth}
           />
           {isModalOpen && (
             <AddTransactionModal
@@ -99,7 +97,6 @@ export default function Home({ transactions, setTransactions, isLoading }) {
           <Footer />
         </>
       }
-
     </div>
   );
 }
