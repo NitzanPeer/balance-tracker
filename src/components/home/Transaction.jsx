@@ -2,11 +2,15 @@ import React from "react";
 
 export default function Transaction({ transaction, handleRemoveTransaction }) {
   let transactionDate;
-  // Check if `transaction.date` is a Firebase Timestamp
+
+  // This condition is made to handle an old date type which I used initially (string)
+  // as well as a new one (timestamp used by firebase's firestore) -
+
+  // Check if `transaction.date` is a valid timestamp
   if (transaction.date && transaction.date.seconds) {
     transactionDate = new Date(transaction.date.seconds * 1000); // Convert to JavaScript Date object
   } else {
-    transactionDate = new Date(); // Default to current date if no valid date is provided
+    transactionDate = new Date(transaction.date); // Parse date string
   }
 
   const formattedDate = transactionDate.toLocaleDateString("en-GB"); // 'en-GB' for dd/mm/yyyy format

@@ -65,7 +65,7 @@ export async function removeTransaction(userId, transaction) {
 }
 
 // This function is made to handle an old date type (string) which I used initially
-// and a new one (timestamp used by firebase's firestore)
+// as well as a new one (timestamp used by firebase's firestore)
 export function filterTransactionsByMonth(transactions, selectedMonth) {
   if (!transactions.length) {
     return [];
