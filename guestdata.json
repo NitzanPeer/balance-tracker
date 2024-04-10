@@ -8,6 +8,14 @@
     "isIncome": true
   },
   {
+    "title": "חודשי",
+    "date": "2024-03-01",
+    "id": "IzEztf",
+    "category": "Income",
+    "sum": "1300",
+    "isIncome": true
+  },
+  {
     "sum": "70",
     "title": "תספורת",
     "id": "41ab7m",
