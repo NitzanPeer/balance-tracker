@@ -30,11 +30,26 @@ export function loadFromLocalStorage(key) {
   }
 }
 
-// a function the sort uses to sort transactions by date (desc order)
+// A function that is made to handle both string and timestamp type dates
+// and converts them into one type that's compareable and ready for sorting
+function getDateObject(date) {
+  if (typeof date === 'string') {
+    return new Date(date);
+  } else if (date instanceof Date) {
+    return date;
+  } else {
+    return date.toDate(); // Convert Firebase Timestamp to Date
+  }
+}
+
+// A function the sort uses to sort transactions by date (desc order)
 export function compareDates(a, b) {
-  const dateA = new Date(a.date);
-  const dateB = new Date(b.date);
-  return dateB - dateA;
+  const dateA = getDateObject(a.date);
+  const dateB = getDateObject(b.date);
+
+  if (dateA.getTime() > dateB.getTime()) return -1;
+  if (dateA.getTime() < dateB.getTime()) return 1;
+  return 0;
 }
 
 export function getLastMonthProperties() {

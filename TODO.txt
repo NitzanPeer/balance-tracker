@@ -2,6 +2,7 @@ TODO:
 
 1. Check if both isIncome and category properties are needed as transacion properties or is one enough
 2. Finalize design - (mainly change background colors to a more beautiful pallet).
+3. Change the transactions that hold date in it's former form (string) to timestamp, JSON as well.
 
 
 FIXME:

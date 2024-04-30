@@ -28,6 +28,7 @@ export default function Home({ transactions, setTransactions, isLoading }) {
 
   useEffect(() => {
     setTransactionsByMonth(filterTransactionsByMonth(transactions, selectedMonth).sort(compareDates));
+    console.log(transactions)
   }, [selectedMonth, transactions]);
 
   useEffect(() => {
